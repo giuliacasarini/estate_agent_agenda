@@ -2,12 +2,20 @@ var http = require('http');
 var fs = require('fs');
 var myurl = require('url');
 var express = require('express');
+var session = require('express-session');
 var bodyParser = require('body-parser');
 var dbconnection = require('./dbcon');
+var path = require('path');
 
 var server = express();
 server.use(bodyParser.json()); // support json encoded bodies
 server.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+server.use(session({
+	secret: 'secret',
+	resave: true,
+	saveUninitialized: true
+}));
+server.use(express.static(__dirname + '/public'));
 
 server.listen(5678, function () {
 	console.log('========= SERVER INFO =========');
@@ -15,39 +23,42 @@ server.listen(5678, function () {
 	console.log('===============================');
 	console.log('\n\n');
 });
+server.get('/', function(request, response) {
+	response.sendFile(path.join(__dirname + '/login.html'));
+});
+server.get('/home', function(request, response) {
+	if (request.session.loggedin) {
+		response.sendFile(path.join(__dirname + '/index.html'));
+	} else {
+		response.send('Please login to view this page!');
+	}
+	response.end();
+});
 server.post('/login',	login);
 server.get('/api',	 getApiInfo);
 server.get('/users', listUsers);
 
 //login
-function login(req) {
-	var email = req.body.email;
-	var password = req.body.password;
-	console.log(password);
-	console.log(email);
-	var sql = "SELECT * FROM agente WHERE email = '" + email + "' AND password = '" + password + "'";
-	if (email == '' || password == '') {
-		console.log('Inserisci bene le credenziali');
-		return;
-	}
-	else{
-			dbconnection.query(sql, function (err, result) {
-				if (err) throw err;
-				console.log(result.length);
-				if (result.length == 1) {
-					console.log("Logged In!");
-					//locate="index.html"
-				}
-				else {
-					console.log("credenziali sbagliate");
-					return false;
-				}
-			});
+function login(request, response) {
+	var username = request.body.email;
+	var password = request.body.password;
+	
+	if (username && password) {
+		dbconnection.query('SELECT * FROM agente WHERE email = ? AND password = ?', [username, password], function(error, results, fields) {
+			if (results.length > 0) {
+				request.session.loggedin = true;
+				request.session.username = username;
+				response.redirect('/home');
+			} else {
+				response.send('Credenziali sbagliate!');
+			}			
+			response.end();
+		});
+	} else {
+		response.send('Inserisci le credenziali!');
+		response.end();
 	}
 }
-
-
-
 
 function listUsers(request, response) {
   console.log('API - GET: /users ==> listUsers(..)');
