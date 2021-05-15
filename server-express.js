@@ -15,7 +15,7 @@ server.use(session({
 	resave: true,
 	saveUninitialized: true
 }));
-server.use(express.static(__dirname + '/public'));
+server.use(express.static(__dirname + '/public/'));
 
 server.listen(5678, function () {
 	console.log('========= SERVER INFO =========');
@@ -32,7 +32,6 @@ server.get('/home', function(request, response) {
 	} else {
 		response.send('Please login to view this page!');
 	}
-	response.end();
 });
 server.post('/login',	login);
 server.get('/api',	 getApiInfo);
