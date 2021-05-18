@@ -33,6 +33,20 @@ server.get('/home', function(request, response) {
 		response.send('Please login to view this page!');
 	}
 });
+server.get('/home', function(request, response) {
+	if (request.session.loggedin) {
+		response.sendFile(path.join(__dirname + '/proprieta_affitto.html'));
+	} else {
+		response.send('Please login to view this page!');
+	}
+});
+server.get('/home', function(request, response) {
+	if (request.session.loggedin) {
+		response.sendFile(path.join(__dirname + '/proprieta_vendita.html'));
+	} else {
+		response.send('Please login to view this page!');
+	}
+});
 server.post('/login',	login);
 server.get('/api',	 getApiInfo);
 server.get('/users', listUsers);

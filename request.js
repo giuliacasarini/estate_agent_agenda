@@ -11,6 +11,23 @@ request({
     console.log(body);
 });
 
+request({
+    url: "http://localhost:5678/proprieta_affitto",
+    method: "POST",
+    json: true,   // <--Very important!!!
+    body: loginJSON
+}, function (error, response, body){
+    console.log(body);
+});
+
+request({
+    url: "http://localhost:5678/proprieta_vendita",
+    method: "POST",
+    json: true,   // <--Very important!!!
+    body: loginJSON
+}, function (error, response, body){
+    console.log(body);
+});
 
 request({
     url: "http://localhost:5678/users",
