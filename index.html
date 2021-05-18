@@ -5,26 +5,26 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>EstateAgency Bootstrap Template - Index</title>
+  <title>EstateAgency - Index</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="/public/assets/img/favicon.png" rel="icon">
+  <link href="/public/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/ionicons/css/ionicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
-  <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="/public/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/public/assets/vendor/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="/public/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="/public/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/public/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="../../public/assets/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -139,30 +139,30 @@
       <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" href="index.html">Home</a>
+            <a class="nav-link active" href="home">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="about.html">Appuntamenti</a>
+            <a class="nav-link" href="appuntamenti">Appuntamenti</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="property-grid.html">Clienti</a>
+            <a class="nav-link" href="clienti">Clienti</a>
           </li>
          <!-- <li class="nav-item">
             <a class="nav-link" href="blog-grid.html">Blog</a>
           </li>-->
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="proprieta" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Proprietà
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="proprieta_vendita.html">Proprietà in vendita</a>
-              <a class="dropdown-item" href="proprieta_affitto.html">Proprietà in affitto </a>
-              <a class="dropdown-item" href="agents-grid.html">Immobili in vendita</a>
-              <a class="dropdown-item" href="agent-single.html">Immobili in vendita</a>
+			<a class="dropdown-item" href="proprieta/immobili/affitto">Immobili in affitto</a>
+              <a class="dropdown-item" href="proprieta/immobili/vendita">Immobili in vendita</a>
+              <a class="dropdown-item" href="proprieta/fondi/affitto">Fondi Commerciali in affitto</a>
+              <a class="dropdown-item" href="proprieta/fondi/vendita">Fondi Commerciali in vendita </a>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="contact.html">Agenti</a>
+            <a class="nav-link" href="agenti">Agenti</a>
           </li>
         </ul>
       </div>
@@ -175,10 +175,11 @@
   <!-- ======= Intro Section ======= -->
   <div class="intro intro-carousel">
     <div id="carousel" class="owl-carousel owl-theme">
-      <div class="carousel-item-a intro-item bg-image" style="background-image: url(assets/img/calendario.jpg)">
+      <div class="carousel-item-a intro-item bg-image" style="background-image: url(/public/assets/img/calendario.jpg)">
         <div class="overlay overlay-a"></div>
         <div class="intro-content display-table">
           <div class="table-cell">
+			<a href="appuntamenti">
             <div class="container">
               <div class="row">
                 <div class="col-lg-8">
@@ -197,13 +198,15 @@
                 </div>
               </div>
             </div>
+			</a>
           </div>
         </div>
       </div>
-      <div class="carousel-item-a intro-item bg-image" style="background-image: url(assets/img/proprietà.jpg)">
+      <div class="carousel-item-a intro-item bg-image" style="background-image: url(/public/assets/img/proprietà.jpg)">
         <div class="overlay overlay-a"></div>
         <div class="intro-content display-table">
           <div class="table-cell">
+			<a href="proprieta/immobili/all"> 
             <div class="container">
               <div class="row">
                 <div class="col-lg-8">
@@ -212,7 +215,7 @@
                       <br> 78345
                     </p>-->
                     <h1 class="intro-title mb-4">
-                      <span class="color-b">Proprietà </span> 
+                      <span class="color-b">Immobili </span> 
                  
                     </h1>
                     <!--<p class="intro-subtitle intro-price">
@@ -222,13 +225,15 @@
                 </div>
               </div>
             </div>
+			</a>
           </div>
         </div>
       </div>
-      <div class="carousel-item-a intro-item bg-image" style="background-image: url(assets/img/fondo_commerciale.jpg)">
+      <div class="carousel-item-a intro-item bg-image" style="background-image: url(/public/assets/img/fondo_commerciale.jpg)">
         <div class="overlay overlay-a"></div>
         <div class="intro-content display-table">
           <div class="table-cell">
+			<a href="proprieta/fondi/all">
             <div class="container">
               <div class="row">
                 <div class="col-lg-8">
@@ -247,6 +252,7 @@
                 </div>
               </div>
             </div>
+			</a>
           </div>
         </div>
       </div>
@@ -351,10 +357,10 @@
           <div class="col-md-12">
             <div class="title-wrap d-flex justify-content-between">
               <div class="title-box">
-                <h2 class="title-a">Properties</h2>
+                <h2 class="title-a">Proprietà</h2>
               </div>
               <div class="title-link">
-                <a href="property-grid.html">Tutte le Proprietà
+                <a href="proprieta">Tutte le Proprietà
                   <span class="ion-ios-arrow-forward"></span>
                 </a>
               </div>
@@ -365,13 +371,13 @@
           <div class="carousel-item-b">
             <div class="card-box-a card-shadow">
               <div class="img-box-a">
-                <img src="assets/img/property-6.jpg" alt="" class="img-a img-fluid">
+                <img src="/public/assets/img/property-6.jpg" alt="" class="img-a img-fluid">
               </div>
               <div class="card-overlay">
                 <div class="card-overlay-a-content">
                   <div class="card-header-a">
                     <h2 class="card-title-a">
-                      <a href="property-single.html">Immobili
+                      <a href="proprieta/immobili/affitto">Immobili
                         <br /> in affitto</a>
                     </h2>
                   </div>
@@ -379,7 +385,7 @@
                     <!--<div class="price-box d-flex">
                       <span class="price-a">rent | $ 12.000</span>
                     </div>-->
-                    <a href="#" class="link-a">Clicca qua per gli affitti
+                    <a href="proprieta/immobili/affitto" class="link-a">Clicca qua per gli immobili in affitto
                       <span class="ion-ios-arrow-forward"></span>
                     </a>
                   </div>
@@ -412,13 +418,13 @@
           <div class="carousel-item-b">
             <div class="card-box-a card-shadow">
               <div class="img-box-a">
-                <img src="assets/img/property-3.jpg" alt="" class="img-a img-fluid">
+                <img src="/public/assets/img/property-3.jpg" alt="" class="img-a img-fluid">
               </div>
               <div class="card-overlay">
                 <div class="card-overlay-a-content">
                   <div class="card-header-a">
                     <h2 class="card-title-a">
-                      <a href="property-single.html">Immobili
+                      <a href="proprieta/immobili/vendita">Immobili
                         <br />in vendita </a>
                     </h2>
                   </div>
@@ -426,7 +432,7 @@
                     <!--<div class="price-box d-flex">
                       <span class="price-a">rent | $ 12.000</span>
                     </div>-->
-                    <a href="property-single.html" class="link-a">Clicca qua per le vendite
+                    <a href="proprieta/immobili/vendita" class="link-a">Clicca qua per gli immobili in vendita
                       <span class="ion-ios-arrow-forward"></span>
                     </a>
                   </div>
@@ -459,13 +465,13 @@
           <div class="carousel-item-b">
             <div class="card-box-a card-shadow">
               <div class="img-box-a">
-                <img src="assets/img/property-7.jpg" alt="" class="img-a img-fluid">
+                <img src="/public/assets/img/property-7.jpg" alt="" class="img-a img-fluid">
               </div>
               <div class="card-overlay">
                 <div class="card-overlay-a-content">
                   <div class="card-header-a">
                     <h2 class="card-title-a">
-                      <a href="property-single.html">Fondi
+                      <a href="proprieta/fondi/affitto">Fondi Commerciali
                         <br /> in affitto</a>
                     </h2>
                   </div>
@@ -473,7 +479,7 @@
                     <!--<div class="price-box d-flex">
                       <span class="price-a">rent | $ 12.000</span>
                     </div>-->
-                    <a href="property-single.html" class="link-a">Clica per vedere i fondi in affitto
+                    <a href="proprieta/fondi/affitto" class="link-a">Clicca qua per i fondi in affitto
                       <span class="ion-ios-arrow-forward"></span>
                     </a>
                   </div>
@@ -506,13 +512,13 @@
           <div class="carousel-item-b">
             <div class="card-box-a card-shadow">
               <div class="img-box-a">
-                <img src="assets/img/property-10.jpg" alt="" class="img-a img-fluid">
+                <img src="/public/assets/img/property-10.jpg" alt="" class="img-a img-fluid">
               </div>
               <div class="card-overlay">
                 <div class="card-overlay-a-content">
                   <div class="card-header-a">
                     <h2 class="card-title-a">
-                      <a href="property-single.html">Fondi
+                      <a href="proprieta/fondi/vendita">Fondi Commerciali
                         <br />in vendita  </a>
                     </h2>
                   </div>
@@ -520,7 +526,7 @@
                     <!--<div class="price-box d-flex">
                       <span class="price-a">rent | $ 12.000</span>
                     </div>-->
-                    <a href="property-single.html" class="link-a">Clica per vedere i fondi in vendits
+                    <a href="proprieta/fondi/vendita" class="link-a">Clicca qua per i fondi in vendita
                       <span class="ion-ios-arrow-forward"></span>
                     </a>
                   </div>
@@ -561,10 +567,10 @@
           <div class="col-md-12">
             <div class="title-wrap d-flex justify-content-between">
               <div class="title-box">
-                <h2 class="title-a">Best Agents</h2>
+                <h2 class="title-a">Agenti</h2>
               </div>
               <div class="title-link">
-                <a href="agents-grid.html">All Agents
+                <a href="agenti">Tutti gli Agenti
                   <span class="ion-ios-arrow-forward"></span>
                 </a>
               </div>
@@ -575,13 +581,13 @@
           <div class="col-md-6">
             <div class="card-box-d">
               <div class="card-img-d">
-                <img src="assets/img/agente.jpg" alt="" class="img-d img-fluid">
+                <img src="/public/assets/img/agente.jpg" alt="" class="img-d img-fluid">
               </div>
               <div class="card-overlay card-overlay-hover">
                 <div class="card-header-d">
                   <div class="card-title-d align-self-center">
                     <h3 class="title-d">
-                      <a href="agent-single.html" class="link-two">Margaret Sotillo
+                      <a href="agenti/1" class="link-two">Margaret Sotillo
                         <br> Escala</a>
                     </h3>
                   </div>
@@ -636,13 +642,13 @@
           <div class="col-md-6">
             <div class="card-box-d">
               <div class="card-img-d">
-                <img src="assets/img/agente.jpg" alt="" class="img-d img-fluid">
+                <img src="/public/assets/img/agente.jpg" alt="" class="img-d img-fluid">
               </div>
               <div class="card-overlay card-overlay-hover">
                 <div class="card-header-d">
                   <div class="card-title-d align-self-center">
                     <h3 class="title-d">
-                      <a href="agent-single.html" class="link-two">Stiven Spilver
+                      <a href="agenti/2" class="link-two">Stiven Spilver
                         <br> Darw</a>
                     </h3>
                   </div>
@@ -697,7 +703,7 @@
           <!--<div class="col-md-4">
             <div class="card-box-d">
               <div class="card-img-d">
-                <img src="assets/img/agent-5.jpg" alt="" class="img-d img-fluid">
+                <img src="/public/assets/img/agent-5.jpg" alt="" class="img-d img-fluid">
               </div>
               <div class="card-overlay card-overlay-hover">
                 <div class="card-header-d">
@@ -780,7 +786,7 @@
           <div class="carousel-item-c">
             <div class="card-box-b card-shadow news-box">
               <div class="img-box-b">
-                <img src="assets/img/post-2.jpg" alt="" class="img-b img-fluid">
+                <img src="/public/assets/img/post-2.jpg" alt="" class="img-b img-fluid">
               </div>
               <div class="card-overlay">
                 <div class="card-header-b">
@@ -803,7 +809,7 @@
           <div class="carousel-item-c">
             <div class="card-box-b card-shadow news-box">
               <div class="img-box-b">
-                <img src="assets/img/post-5.jpg" alt="" class="img-b img-fluid">
+                <img src="/public/assets/img/post-5.jpg" alt="" class="img-b img-fluid">
               </div>
               <div class="card-overlay">
                 <div class="card-header-b">
@@ -826,7 +832,7 @@
           <div class="carousel-item-c">
             <div class="card-box-b card-shadow news-box">
               <div class="img-box-b">
-                <img src="assets/img/post-7.jpg" alt="" class="img-b img-fluid">
+                <img src="/public/assets/img/post-7.jpg" alt="" class="img-b img-fluid">
               </div>
               <div class="card-overlay">
                 <div class="card-header-b">
@@ -849,7 +855,7 @@
           <div class="carousel-item-c">
             <div class="card-box-b card-shadow news-box">
               <div class="img-box-b">
-                <img src="assets/img/post-3.jpg" alt="" class="img-b img-fluid">
+                <img src="/public/assets/img/post-3.jpg" alt="" class="img-b img-fluid">
               </div>
               <div class="card-overlay">
                 <div class="card-header-b">
@@ -891,7 +897,7 @@
               <div class="row">
                 <div class="col-sm-12 col-md-6">
                   <div class="testimonial-img">
-                    <img src="assets/img/testimonial-1.jpg" alt="" class="img-fluid">
+                    <img src="/public/assets/img/testimonial-1.jpg" alt="" class="img-fluid">
                   </div>
                 </div>
                 <div class="col-sm-12 col-md-6">
@@ -906,7 +912,7 @@
                     </p>
                   </div>
                   <div class="testimonial-author-box">
-                    <img src="assets/img/mini-testimonial-1.jpg" alt="" class="testimonial-avatar">
+                    <img src="/public/assets/img/mini-testimonial-1.jpg" alt="" class="testimonial-avatar">
                     <h5 class="testimonial-author">Albert & Erika</h5>
                   </div>
                 </div>
@@ -918,7 +924,7 @@
               <div class="row">
                 <div class="col-sm-12 col-md-6">
                   <div class="testimonial-img">
-                    <img src="assets/img/testimonial-2.jpg" alt="" class="img-fluid">
+                    <img src="/public/assets/img/testimonial-2.jpg" alt="" class="img-fluid">
                   </div>
                 </div>
                 <div class="col-sm-12 col-md-6">
@@ -933,7 +939,7 @@
                     </p>
                   </div>
                   <div class="testimonial-author-box">
-                    <img src="assets/img/mini-testimonial-2.jpg" alt="" class="testimonial-avatar">
+                    <img src="/public/assets/img/mini-testimonial-2.jpg" alt="" class="testimonial-avatar">
                     <h5 class="testimonial-author">Pablo & Emma</h5>
                   </div>
                 </div>
@@ -1112,15 +1118,15 @@
   <div id="preloader"></div>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/jquery/jquery.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-  <script src="assets/vendor/scrollreveal/scrollreveal.min.js"></script>
+  <script src="/public/assets/vendor/jquery/jquery.min.js"></script>
+  <script src="/public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/public/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="/public/assets/vendor/php-email-form/validate.js"></script>
+  <script src="/public/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="/public/assets/vendor/scrollreveal/scrollreveal.min.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="/public/assets/js/main.js"></script>
 
 </body>
 

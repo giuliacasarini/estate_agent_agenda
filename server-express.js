@@ -15,7 +15,7 @@ server.use(session({
 	resave: true,
 	saveUninitialized: true
 }));
-server.use(express.static(__dirname + '/public/'));
+server.use('/public', express.static('public'));
 
 server.listen(5678, function () {
 	console.log('========= SERVER INFO =========');
@@ -23,9 +23,11 @@ server.listen(5678, function () {
 	console.log('===============================');
 	console.log('\n\n');
 });
+
 server.get('/', function(request, response) {
 	response.sendFile(path.join(__dirname + '/login.html'));
 });
+
 server.get('/home', function(request, response) {
 	if (request.session.loggedin) {
 		response.sendFile(path.join(__dirname + '/index.html'));
@@ -33,20 +35,64 @@ server.get('/home', function(request, response) {
 		response.send('Please login to view this page!');
 	}
 });
-server.get('/home', function(request, response) {
+
+server.get('/appuntamenti', function(request, response) {
 	if (request.session.loggedin) {
-		response.sendFile(path.join(__dirname + '/proprieta_affitto.html'));
+		response.sendFile(path.join(__dirname + '/appuntamenti.html'));
 	} else {
 		response.send('Please login to view this page!');
 	}
 });
-server.get('/home', function(request, response) {
+
+server.get('/clienti', function(request, response) {
 	if (request.session.loggedin) {
-		response.sendFile(path.join(__dirname + '/proprieta_vendita.html'));
+		response.sendFile(path.join(__dirname + '/clienti.html'));
 	} else {
 		response.send('Please login to view this page!');
 	}
 });
+
+server.get('/agenti', function(request, response) {
+	if (request.session.loggedin) {
+		response.sendFile(path.join(__dirname + '/agents-grid.html'));
+	} else {
+		response.send('Please login to view this page!');
+	}
+});
+
+server.get('/agenti/:id', function(request, response) {
+	if (request.session.loggedin) {
+		response.sendFile(path.join(__dirname + '/agent-single.html'));
+	} else {
+		response.send('Please login to view this page!');
+	}
+});
+
+server.get('/proprieta', function(request, response) {
+	if (request.session.loggedin) {
+		response.sendFile(path.join(__dirname + '/property-grid.html'));
+	} else {
+		response.send('Please login to view this page!');
+	}
+});
+
+server.get('/proprieta/:id', function(request, response) {
+	if (request.session.loggedin) {
+		response.sendFile(path.join(__dirname + '/property-single.html'));
+	} else {
+		response.send('Please login to view this page!');
+	}
+});
+
+server.get('/proprieta/:tipo/:contratto', function(request, response) {
+	if (request.session.loggedin) {
+		console.log(request.params.tipo + " " + request.params.contratto);
+		response.sendFile(path.join(__dirname + '/property-grid.html'));
+	} else {
+		response.send('Please login to view this page!');
+	}
+});
+
 server.post('/login',	login);
 server.get('/api',	 getApiInfo);
 server.get('/users', listUsers);
