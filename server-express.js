@@ -70,7 +70,14 @@ server.get('/agenti/:id', function(request, response) {
 
 server.get('/proprieta', function(request, response) {
 	if (request.session.loggedin) {
-		response.sendFile(path.join(__dirname + '/property-grid.html'));
+		dbconnection.query('SELECT * FROM immobile', function(error, results, fields) {
+			if (results.length > 0) {
+				request.session.loggedin = true;
+				request.session.username = username;
+				response.sendFile(path.join(__dirname + '/property-grid.html'));
+			}
+		})	
+
 	} else {
 		response.send('Please login to view this page!');
 	}
@@ -78,7 +85,14 @@ server.get('/proprieta', function(request, response) {
 
 server.get('/proprieta/:id', function(request, response) {
 	if (request.session.loggedin) {
-		response.sendFile(path.join(__dirname + '/property-single.html'));
+		dbconnection.query('SELECT * FROM immobile WHERE id = ?', [id]', function(error, results, fields) {
+			if (results.length > 0) {
+				request.session.loggedin = true;
+				request.session.username = username;
+				response.sendFile(path.join(__dirname + '/property-single.html'));
+			}
+		})	
+		
 	} else {
 		response.send('Please login to view this page!');
 	}
@@ -86,8 +100,22 @@ server.get('/proprieta/:id', function(request, response) {
 
 server.get('/proprieta/:tipo/:contratto', function(request, response) {
 	if (request.session.loggedin) {
-		console.log(request.params.tipo + " " + request.params.contratto);
-		response.sendFile(path.join(__dirname + '/property-grid.html'));
+		if(request.params.contratto == 'affitto'){
+			dbconnection.query('SELECT * FROM immobile_affitto WHERE tipo = ?', [tipo], function(error, results, fields) {
+				if (results.length > 0) {
+					request.session.loggedin = true;
+					request.session.username = username;
+			console.log(request.params.tipo + " " + request.params.contratto);
+			response.sendFile(path.join(__dirname + '/property-grid.html'));	
+		}
+		else{
+			dbconnection.query('SELECT * FROM immobile_vendita WHERE tipo = ?', [tipo], function(error, results, fields) {
+				if (results.length > 0) {
+					request.session.loggedin = true;
+					request.session.username = username;
+			console.log(request.params.tipo + " " + request.params.contratto);
+			response.sendFile(path.join(__dirname + '/property-grid.html'));
+		}
 	} else {
 		response.send('Please login to view this page!');
 	}
