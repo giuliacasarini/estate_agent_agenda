@@ -7,7 +7,8 @@ dbConnectionInfo = {
   user: "root",
   password: "password",
   connectionLimit: 5, //mysql connection pool length
-  database: "agenda"
+  database: "agenda",
+  multipleStatements: true
 };
 
 

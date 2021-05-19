@@ -1,11 +1,9 @@
-var http = require('http');
-var fs = require('fs');
-var myurl = require('url');
 var express = require('express');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var dbconnection = require('./dbcon');
 var path = require('path');
+var ejs = require('ejs');
 
 var server = express();
 server.use(bodyParser.json()); // support json encoded bodies
@@ -16,6 +14,7 @@ server.use(session({
 	saveUninitialized: true
 }));
 server.use('/public', express.static('public'));
+server.set('view engine', 'ejs');
 
 server.listen(5678, function () {
 	console.log('========= SERVER INFO =========');
@@ -24,8 +23,35 @@ server.listen(5678, function () {
 	console.log('\n\n');
 });
 
+
+
 server.get('/', function(request, response) {
-	response.sendFile(path.join(__dirname + '/login.html'));
+	if (request.session.loggedin) {
+		response.redirect('/home');
+	} else {
+		response.sendFile(path.join(__dirname + '/login.html'));
+	}
+});
+
+server.post('/login', function(request, response) {
+	var username = request.body.email;
+	var password = request.body.password;
+	
+	if (username && password) {
+		dbconnection.query('SELECT * FROM agente WHERE email = ? AND password = ?', [username, password], function(error, results, fields) {
+			if (results.length > 0) {
+				request.session.loggedin = true;
+				request.session.username = username;
+				response.redirect('/home');
+			} else {
+				response.send('Credenziali sbagliate!');
+			}			
+			response.end();
+		});
+	} else {
+		response.send('Inserisci le credenziali!');
+		response.end();
+	}
 });
 
 server.get('/home', function(request, response) {
@@ -70,13 +96,16 @@ server.get('/agenti/:id', function(request, response) {
 
 server.get('/proprieta', function(request, response) {
 	if (request.session.loggedin) {
-		dbconnection.query('SELECT * FROM immobile', function(error, results, fields) {
-			if (results.length > 0) {
-				request.session.loggedin = true;
-				request.session.username = username;
-				response.sendFile(path.join(__dirname + '/property-grid.html'));
+		dbconnection.query('SELECT * FROM proprieta_affitto', function(error, results, fields) {
+			if (error) throw error;
+			if (results) {
+				var proprieta = JSON.stringify(results);
+				response.render('property-grid', {proprieta:proprieta});
 			}
-		})	
+			else{
+				response.render('property-grid');
+			}
+		});	
 
 	} else {
 		response.send('Please login to view this page!');
@@ -85,13 +114,13 @@ server.get('/proprieta', function(request, response) {
 
 server.get('/proprieta/:id', function(request, response) {
 	if (request.session.loggedin) {
-		dbconnection.query('SELECT * FROM immobile WHERE id = ?', [id]', function(error, results, fields) {
+		dbconnection.query('SELECT * FROM immobile WHERE id = ?', [id], function(error, results, fields) {
 			if (results.length > 0) {
 				request.session.loggedin = true;
 				request.session.username = username;
 				response.sendFile(path.join(__dirname + '/property-single.html'));
 			}
-		})	
+		});	
 		
 	} else {
 		response.send('Please login to view this page!');
@@ -101,65 +130,56 @@ server.get('/proprieta/:id', function(request, response) {
 server.get('/proprieta/:tipo/:contratto', function(request, response) {
 	if (request.session.loggedin) {
 		if(request.params.contratto == 'affitto'){
-			dbconnection.query('SELECT * FROM immobile_affitto WHERE tipo = ?', [tipo], function(error, results, fields) {
-				if (results.length > 0) {
-					request.session.loggedin = true;
-					request.session.username = username;
-			console.log(request.params.tipo + " " + request.params.contratto);
-			response.sendFile(path.join(__dirname + '/property-grid.html'));	
+			dbconnection.query('SELECT * FROM proprieta_affitto WHERE tipo = ?', [request.params.tipo], function(error, results, fields) {
+				if (error) throw error;
+				if (results) {
+					var proprieta = JSON.stringify(results);
+					response.render('property-grid', {proprieta:proprieta});
+				}
+				else{
+					response.render('property-grid');
+				}
+			});
+		} else if (request.params.contratto == 'vendita'){
+			dbconnection.query('SELECT * FROM proprieta_vendita WHERE tipo = ?', [request.params.tipo], function(error, results, fields) {
+				if (error) throw error;
+				if (results) {
+					var proprieta = JSON.stringify(results);
+					response.render('property-grid', {proprieta:proprieta});
+				}
+				else{
+					response.render('property-grid');
+				}
+			});
+		} else {
+			dbconnection.query('SELECT * FROM proprieta_vendita WHERE tipo = ?; SELECT * FROM proprieta_affitto WHERE tipo = ?', [request.params.tipo, request.params.tipo], function(error, results, fields) {
+				if (error) throw error;
+				if (results) {
+					var proprieta_array = [];
+					for (var i=0; i <  results[0].length; i++) {
+						proprieta_array.push(results[0][i]);
+					}
+					for (var i=0; i <  results[1].length; i++) {
+						proprieta_array.push(results[1][i]);
+					}
+					var proprieta = JSON.stringify(proprieta_array);
+					response.render('property-grid', {proprieta:proprieta});
+				}
+				else{
+					response.render('property-grid');
+				}
+			});
 		}
-		else{
-			dbconnection.query('SELECT * FROM immobile_vendita WHERE tipo = ?', [tipo], function(error, results, fields) {
-				if (results.length > 0) {
-					request.session.loggedin = true;
-					request.session.username = username;
-			console.log(request.params.tipo + " " + request.params.contratto);
-			response.sendFile(path.join(__dirname + '/property-grid.html'));
-		}
+		
 	} else {
 		response.send('Please login to view this page!');
 	}
 });
 
-server.post('/login',	login);
-server.get('/api',	 getApiInfo);
-server.get('/users', listUsers);
-
-//login
-function login(request, response) {
-	var username = request.body.email;
-	var password = request.body.password;
-	
-	if (username && password) {
-		dbconnection.query('SELECT * FROM agente WHERE email = ? AND password = ?', [username, password], function(error, results, fields) {
-			if (results.length > 0) {
-				request.session.loggedin = true;
-				request.session.username = username;
-				response.redirect('/home');
-			} else {
-				response.send('Credenziali sbagliate!');
-			}			
-			response.end();
-		});
-	} else {
-		response.send('Inserisci le credenziali!');
-		response.end();
-	}
-}
-
-function listUsers(request, response) {
-  console.log('API - GET: /users ==> listUsers(..)');
-  var sql = "SELECT * FROM agente";
-	  dbconnection.query(sql, function (err, result) {
-		if (err) throw err;
-		response.end(JSON.stringify(result));
-	  });
-}
 
 
 /***** Supports Functions *****/
-
-function getApiInfo (request, response) {
+server.get('/api', function(request, response) {
 	console.log('API - GET: /api ==> getApiInfo(..)');
 
 	response.writeHead(200, {'Content-Type': 'text/plain'});
@@ -177,4 +197,4 @@ function getApiInfo (request, response) {
 	response.write('\t\t"name" : "Joe",\n');
 	response.write('\t}\n');
 	response.end();
-};
+});

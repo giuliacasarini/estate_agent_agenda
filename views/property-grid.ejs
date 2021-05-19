@@ -222,7 +222,8 @@
               </form>
             </div>
           </div>
-          {% for item in resultsQry %}
+		  <%  var parsed_proprieta = JSON.parse(proprieta) %>
+		  <% for(var i=0; i <  parsed_proprieta.length; i++) { %>
           <div class="col-md-4">
             <div class="card-box-a card-shadow">
               <div class="img-box-a">
@@ -232,12 +233,11 @@
                 <div class="card-overlay-a-content">
                   <div class="card-header-a">
                     <h2 class="card-title-a">
-                      <a href="#">{{ item. }}
-                    </h2>
+                      <a href="#"><%= parsed_proprieta[i].via %>
                   </div>
                   <div class="card-body-a">
                     <div class="price-box d-flex">
-                      <span class="price-a">rent | $ 12.000</span>
+                      <span class="price-a"><%= parsed_proprieta[i].prezzo %></span>
                     </div>
                     <a href="property-single.html" class="link-a">Click here to view
                       <span class="ion-ios-arrow-forward"></span>
@@ -270,6 +270,7 @@
             </div>
           </div> 
         </div>
+		<% } %>
         <div class="row">
           <div class="col-sm-12">
             <nav class="pagination-a">
