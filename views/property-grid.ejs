@@ -189,11 +189,11 @@
                 <div class="card-overlay-a-content">
                   <div class="card-header-a">
                     <h2 class="card-title-a">
-                      <a href="#"><%= parsed_proprieta[i].via %>
+                      <a href="#"><%= parsed_proprieta[i].citta %>
                   </div>
                   <div class="card-body-a">
                     <div class="price-box d-flex">
-                      <span class="price-a"><%= parsed_proprieta[i].prezzo %></span>
+                      <span class="price-a"><%= parsed_proprieta[i].via %> </span>
                     </div>
                     <a href="property-single.html" class="link-a">Click here to view
                       <span class="ion-ios-arrow-forward"></span>
@@ -202,23 +202,12 @@
                   <div class="card-footer-a">
                     <ul class="card-info d-flex justify-content-around">
                       <li>
-                        <h4 class="card-info-title">Area</h4>
-                        <span>340m
-                          <sup>2</sup>
+                        <h4 class="card-info-title">Prezzo</h4>
+                        <span><%= parsed_proprieta[i].prezzo %>
                         </span>
                       </li>
-                      <li>
-                        <h4 class="card-info-title">Beds</h4>
-                        <span>2</span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Baths</h4>
-                        <span>4</span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Garages</h4>
-                        <span>1</span>
-                      </li>
+                      
+                      
                     </ul>
                   </div>
                 </div>
