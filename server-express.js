@@ -29,7 +29,7 @@ server.get('/', function(request, response) {
 	if (request.session.loggedin) {
 		response.redirect('/home');
 	} else {
-		response.sendFile(path.join(__dirname + '/login.html'));
+		response.render('login');
 	}
 });
 
@@ -56,7 +56,7 @@ server.post('/login', function(request, response) {
 
 server.get('/home', function(request, response) {
 	if (request.session.loggedin) {
-		response.sendFile(path.join(__dirname + '/index.html'));
+		response.render('index');
 	} else {
 		response.send('Please login to view this page!');
 	}
@@ -64,7 +64,7 @@ server.get('/home', function(request, response) {
 
 server.get('/appuntamenti', function(request, response) {
 	if (request.session.loggedin) {
-		response.sendFile(path.join(__dirname + '/appuntamenti.html'));
+		response.render('appuntamenti');
 	} else {
 		response.send('Please login to view this page!');
 	}
@@ -72,7 +72,7 @@ server.get('/appuntamenti', function(request, response) {
 
 server.get('/clienti', function(request, response) {
 	if (request.session.loggedin) {
-		response.sendFile(path.join(__dirname + '/clienti.html'));
+		response.render('clienti');
 	} else {
 		response.send('Please login to view this page!');
 	}
@@ -80,7 +80,7 @@ server.get('/clienti', function(request, response) {
 
 server.get('/agenti', function(request, response) {
 	if (request.session.loggedin) {
-		response.sendFile(path.join(__dirname + '/agents-grid.html'));
+		response.render('agents-grid');
 	} else {
 		response.send('Please login to view this page!');
 	}
@@ -88,7 +88,7 @@ server.get('/agenti', function(request, response) {
 
 server.get('/agenti/:id', function(request, response) {
 	if (request.session.loggedin) {
-		response.sendFile(path.join(__dirname + '/agent-single.html'));
+		response.render('agent-single');
 	} else {
 		response.send('Please login to view this page!');
 	}
@@ -118,7 +118,7 @@ server.get('/proprieta/:id', function(request, response) {
 			if (results.length > 0) {
 				request.session.loggedin = true;
 				request.session.username = username;
-				response.sendFile(path.join(__dirname + '/property-single.html'));
+				response.render('property-single');
 			}
 		});	
 		

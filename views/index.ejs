@@ -126,7 +126,7 @@
 
   <!-- ======= Header/Navbar ======= -->
   <!-- End Header/Navbar -->
-  <%include navbar.html%>
+  <%- include('navbar.ejs') %>
   <!-- ======= Intro Section ======= -->
   <div class="intro intro-carousel">
     <div id="carousel" class="owl-carousel owl-theme">
@@ -134,7 +134,7 @@
         <div class="overlay overlay-a"></div>
         <div class="intro-content display-table">
           <div class="table-cell">
-			<a href="appuntamenti">
+			<a href="/appuntamenti">
             <div class="container">
               <div class="row">
                 <div class="col-lg-8">
@@ -161,7 +161,7 @@
         <div class="overlay overlay-a"></div>
         <div class="intro-content display-table">
           <div class="table-cell">
-			<a href="proprieta/immobili/all"> 
+			<a href="/proprieta/immobili/all"> 
             <div class="container">
               <div class="row">
                 <div class="col-lg-8">
@@ -188,7 +188,7 @@
         <div class="overlay overlay-a"></div>
         <div class="intro-content display-table">
           <div class="table-cell">
-			<a href="proprieta/fondi/all">
+			<a href="/proprieta/fondi/all">
             <div class="container">
               <div class="row">
                 <div class="col-lg-8">
@@ -315,7 +315,7 @@
                 <h2 class="title-a">Proprietà</h2>
               </div>
               <div class="title-link">
-                <a href="proprieta">Tutte le Proprietà
+                <a href="/proprieta">Tutte le Proprietà
                   <span class="ion-ios-arrow-forward"></span>
                 </a>
               </div>
@@ -332,7 +332,7 @@
                 <div class="card-overlay-a-content">
                   <div class="card-header-a">
                     <h2 class="card-title-a">
-                      <a href="proprieta/immobili/affitto">Immobili
+                      <a href="/proprieta/immobili/affitto">Immobili
                         <br /> in affitto</a>
                     </h2>
                   </div>
@@ -340,7 +340,7 @@
                     <!--<div class="price-box d-flex">
                       <span class="price-a">rent | $ 12.000</span>
                     </div>-->
-                    <a href="proprieta/immobili/affitto" class="link-a">Clicca qua per gli immobili in affitto
+                    <a href="/proprieta/immobili/affitto" class="link-a">Clicca qua per gli immobili in affitto
                       <span class="ion-ios-arrow-forward"></span>
                     </a>
                   </div>
@@ -379,7 +379,7 @@
                 <div class="card-overlay-a-content">
                   <div class="card-header-a">
                     <h2 class="card-title-a">
-                      <a href="proprieta/immobili/vendita">Immobili
+                      <a href="/proprieta/immobili/vendita">Immobili
                         <br />in vendita </a>
                     </h2>
                   </div>
@@ -387,7 +387,7 @@
                     <!--<div class="price-box d-flex">
                       <span class="price-a">rent | $ 12.000</span>
                     </div>-->
-                    <a href="proprieta/immobili/vendita" class="link-a">Clicca qua per gli immobili in vendita
+                    <a href="/proprieta/immobili/vendita" class="link-a">Clicca qua per gli immobili in vendita
                       <span class="ion-ios-arrow-forward"></span>
                     </a>
                   </div>
@@ -426,7 +426,7 @@
                 <div class="card-overlay-a-content">
                   <div class="card-header-a">
                     <h2 class="card-title-a">
-                      <a href="proprieta/fondi/affitto">Fondi Commerciali
+                      <a href="/proprieta/fondi/affitto">Fondi Commerciali
                         <br /> in affitto</a>
                     </h2>
                   </div>
@@ -434,7 +434,7 @@
                     <!--<div class="price-box d-flex">
                       <span class="price-a">rent | $ 12.000</span>
                     </div>-->
-                    <a href="proprieta/fondi/affitto" class="link-a">Clicca qua per i fondi in affitto
+                    <a href="/proprieta/fondi/affitto" class="link-a">Clicca qua per i fondi in affitto
                       <span class="ion-ios-arrow-forward"></span>
                     </a>
                   </div>
@@ -473,7 +473,7 @@
                 <div class="card-overlay-a-content">
                   <div class="card-header-a">
                     <h2 class="card-title-a">
-                      <a href="proprieta/fondi/vendita">Fondi Commerciali
+                      <a href="/proprieta/fondi/vendita">Fondi Commerciali
                         <br />in vendita  </a>
                     </h2>
                   </div>
@@ -481,7 +481,7 @@
                     <!--<div class="price-box d-flex">
                       <span class="price-a">rent | $ 12.000</span>
                     </div>-->
-                    <a href="proprieta/fondi/vendita" class="link-a">Clicca qua per i fondi in vendita
+                    <a href="/proprieta/fondi/vendita" class="link-a">Clicca qua per i fondi in vendita
                       <span class="ion-ios-arrow-forward"></span>
                     </a>
                   </div>
@@ -525,7 +525,7 @@
                 <h2 class="title-a">Agenti</h2>
               </div>
               <div class="title-link">
-                <a href="agenti">Tutti gli Agenti
+                <a href="/agenti">Tutti gli Agenti
                   <span class="ion-ios-arrow-forward"></span>
                 </a>
               </div>
@@ -542,7 +542,7 @@
                 <div class="card-header-d">
                   <div class="card-title-d align-self-center">
                     <h3 class="title-d">
-                      <a href="agenti/1" class="link-two">Margaret Sotillo
+                      <a href="/agenti/1" class="link-two">Margaret Sotillo
                         <br> Escala</a>
                     </h3>
                   </div>
@@ -603,7 +603,7 @@
                 <div class="card-header-d">
                   <div class="card-title-d align-self-center">
                     <h3 class="title-d">
-                      <a href="agenti/2" class="link-two">Stiven Spilver
+                      <a href="/agenti/2" class="link-two">Stiven Spilver
                         <br> Darw</a>
                     </h3>
                   </div>
@@ -908,7 +908,7 @@
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
-  <%include footer.html%>
+  <%- include('footer.ejs') %>
   <!-- End  Footer -->
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
