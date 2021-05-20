@@ -114,12 +114,9 @@ server.get('/proprieta', function(request, response) {
 
 server.get('/proprieta/:id', function(request, response) {
 	if (request.session.loggedin) {
-		if(request.params.tipo == 'affitto'){
 		dbconnection.query('SELECT * FROM proprieta WHERE id = ?', [id], function(error, results, fields) {
 			if (results.length > 0) {
-				request.session.loggedin = true;
-				request.session.username = username;
-				response.render('property-single');
+				response.render('property-single', {id:id});
 			}
 		});	
 	}
@@ -128,7 +125,7 @@ server.get('/proprieta/:id', function(request, response) {
 	}
 });
 
-server.get('/proprieta/:tipo/:contratto', function(request, response) {
+server.get('/proprieta/:contratto', function(request, response) {
 	if (request.session.loggedin) {
 		if(request.params.contratto == 'affitto'){
 			dbconnection.query('SELECT * FROM proprieta WHERE tipo = ?  AND affitto = 1', [request.params.tipo], function(error, results, fields) {
