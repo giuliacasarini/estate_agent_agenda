@@ -126,10 +126,10 @@ server.get('/proprieta/:id', function(request, response) {
 	}
 });
 
-server.get('/proprieta/:tipo/:contratto', function(request, response) {
+server.get('/proprieta/:categoria/:contratto', function(request, response) {
 	if (request.session.loggedin) {
 		if(request.params.contratto == 'affitto'){
-			dbconnection.query('SELECT * FROM proprieta WHERE tipo = ?  AND affitto = 1', [request.params.tipo], function(error, results, fields) {
+			dbconnection.query('SELECT * FROM proprieta WHERE categoria = ?  AND affitto = 1', [request.params.categoria], function(error, results, fields) {
 				if (error) throw error;
 				if (results) {
 					var proprieta = JSON.stringify(results);
@@ -140,7 +140,7 @@ server.get('/proprieta/:tipo/:contratto', function(request, response) {
 				}
 			});
 		} else if (request.params.contratto == 'vendita'){
-			dbconnection.query('SELECT * FROM proprieta WHERE tipo = ? AND vendita = 1', [request.params.tipo], function(error, results, fields) {
+			dbconnection.query('SELECT * FROM proprieta WHERE categoria = ? AND vendita = 1', [request.params.categoria], function(error, results, fields) {
 				if (error) throw error;
 				if (results) {
 					var proprieta = JSON.stringify(results);
@@ -151,7 +151,7 @@ server.get('/proprieta/:tipo/:contratto', function(request, response) {
 				}
 			});
 		} else {
-			dbconnection.query('SELECT * FROM proprieta WHERE tipo = ?; SELECT * FROM proprieta WHERE tipo = ?  AND affitto = 1', [request.params.tipo, request.params.tipo], function(error, results, fields) {
+			dbconnection.query('SELECT * FROM proprieta WHERE categoria = ?; SELECT * FROM proprieta WHERE categoria = ?  AND affitto = 1', [request.params.categoria, request.params.categoria], function(error, results, fields) {
 				if (error) throw error;
 				if (results) {
 					var proprieta_array = [];
