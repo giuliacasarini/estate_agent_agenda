@@ -114,7 +114,7 @@ server.get('/proprieta', function(request, response) {
 
 server.get('/proprieta/:id', function(request, response) {
 	if (request.session.loggedin) {
-		dbconnection.query('SELECT * FROM proprieta WHERE id = ?', [id], function(error, results, fields) {
+		dbconnection.query('SELECT * FROM proprieta WHERE id = ?', [request.params.id], function(error, results, fields) {
 			if (results) {
 				var proprieta = JSON.stringify(results);
 				response.render('property-single', {proprieta:proprieta});
@@ -126,7 +126,7 @@ server.get('/proprieta/:id', function(request, response) {
 	}
 });
 
-server.get('/proprieta/:contratto', function(request, response) {
+server.get('/proprieta/:tipo/:contratto', function(request, response) {
 	if (request.session.loggedin) {
 		if(request.params.contratto == 'affitto'){
 			dbconnection.query('SELECT * FROM proprieta WHERE tipo = ?  AND affitto = 1', [request.params.tipo], function(error, results, fields) {
