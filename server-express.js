@@ -115,8 +115,9 @@ server.get('/proprieta', function(request, response) {
 server.get('/proprieta/:id', function(request, response) {
 	if (request.session.loggedin) {
 		dbconnection.query('SELECT * FROM proprieta WHERE id = ?', [id], function(error, results, fields) {
-			if (results.length > 0) {
-				response.render('property-single', {id:id});
+			if (results) {
+				var proprieta = JSON.stringify(results);
+				response.render('property-single', {proprieta:proprieta});
 			}
 		});	
 	}
