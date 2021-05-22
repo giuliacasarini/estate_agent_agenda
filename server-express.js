@@ -56,6 +56,9 @@ server.post('/login', function(request, response) {
 
 server.get('/home', function(request, response) {
 	if (request.session.loggedin) {
+		dbconnection.query('SELECT DISTINCT categoria FROM proprieta; SELECT DISTINCT tipo FROM proprieta; SELECT DISTINCT citta FROM proprieta', function(error, results, fields) { 
+		//
+		});
 		response.render('index');
 	} else {
 		response.send('Please login to view this page!');
@@ -96,6 +99,8 @@ server.get('/agenti/:id', function(request, response) {
 
 server.get('/proprieta', function(request, response) {
 	if (request.session.loggedin) {
+		dbconnection.query('SELECT DISTINCT categoria FROM proprieta; SELECT DISTINCT tipo FROM proprieta; SELECT DISTINCT citta FROM proprieta', function(error, results, fields) { 
+		});
 		dbconnection.query('SELECT * FROM proprieta', function(error, results, fields) {
 			if (error) throw error;
 			if (results) {
@@ -114,6 +119,9 @@ server.get('/proprieta', function(request, response) {
 
 server.get('/proprieta/:id', function(request, response) {
 	if (request.session.loggedin) {
+		dbconnection.query('SELECT DISTINCT categoria FROM proprieta; SELECT DISTINCT tipo FROM proprieta; SELECT DISTINCT citta FROM proprieta', function(error, results, fields) { 
+		//
+		});
 		dbconnection.query('SELECT * FROM proprieta WHERE id = ?', [request.params.id], function(error, results, fields) {
 			if (results) {
 				var proprieta = JSON.stringify(results);
@@ -128,6 +136,9 @@ server.get('/proprieta/:id', function(request, response) {
 
 server.get('/proprieta/:categoria/:contratto', function(request, response) {
 	if (request.session.loggedin) {
+		dbconnection.query('SELECT DISTINCT categoria FROM proprieta; SELECT DISTINCT tipo FROM proprieta; SELECT DISTINCT citta FROM proprieta', function(error, results, fields) { 
+		//
+		});
 		if(request.params.contratto == 'affitto'){
 			dbconnection.query('SELECT * FROM proprieta WHERE categoria = ?  AND affitto = 1', [request.params.categoria], function(error, results, fields) {
 				if (error) throw error;
