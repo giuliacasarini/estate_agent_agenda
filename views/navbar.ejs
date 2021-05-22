@@ -18,8 +18,8 @@
           <div class="form-group">
             <label for="Type">Categoria</label>
             <select class="form-control form-control-lg form-control-a" id="Type">
-              <option><%= parsed_proprieta[i].categoria %></option>
-              
+              <option><%= searchParams %></option>
+             
             </select>
           </div>
         </div>
@@ -27,7 +27,7 @@
           <div class="form-group">
             <label for="city">Città</label>
             <select class="form-control form-control-lg form-control-a" id="city">
-              <option><%= parsed_proprieta[i].citta %></option>
+              <option><%= searchParams %></option>
             </select>
           </div>
         </div>-->
@@ -65,7 +65,7 @@
           <div class="form-group">
             <label for="price">Prezzo</label>
             <select class="form-control form-control-lg form-control-a" id="price">
-              <option><%= parsed_proprieta[i].prezzo %></option>
+              <option><%= searchParams %></option>
             </select>
           </div>
         </div>
@@ -76,7 +76,7 @@
     </form>
   </div>
 </div>
-<% } %>
+
 <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
     <div class="container">
       <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault" aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
