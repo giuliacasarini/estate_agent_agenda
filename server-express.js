@@ -21,6 +21,7 @@ server.listen(5678, function () {
 	console.log('        Server started!!       ');
 	console.log('===============================');
 	console.log('\n\n');
+	searchParams();
 });
 
 
@@ -55,22 +56,14 @@ server.post('/login', function(request, response) {
 });
 
 function searchParams() {
-		dbconnection.query('SELECT DISTINCT categoria FROM proprieta; SELECT DISTINCT tipo FROM proprieta; SELECT DISTINCT citta FROM proprieta', function(error, results) { 		
-			if (error) throw error;
-			params = [];
-			for(var i=0; i < results[0].length; i++) {
-				params.push(results[0][i]);
-			}
-			for(var i=0; i < results[1].length; i++) {
-				params.push(results[1][i]);
-			}
-			console.log(params);
-			proprieta = "ciao";
-			return proprieta;
-		});
+	dbconnection.query('SELECT DISTINCT categoria FROM proprieta; SELECT DISTINCT tipo FROM proprieta; SELECT DISTINCT citta FROM proprieta', function(error, results) { 		
+		if (error) throw error;
+		if (results){
+			var params = JSON.stringify(results)
+			server.locals.searchParams = params;
+		}
+	});
 }
-
-server.locals.searchParams = searchParams();
 
 server.get('/home', function(request, response) {
 	if (request.session.loggedin) {
@@ -191,27 +184,4 @@ server.get('/proprieta/:categoria/:contratto', function(request, response) {
 	} else {
 		response.send('Please login to view this page!');
 	}
-});
-
-
-
-/***** Supports Functions *****/
-server.get('/api', function(request, response) {
-	console.log('API - GET: /api ==> getApiInfo(..)');
-
-	response.writeHead(200, {'Content-Type': 'text/plain'});
-	response.write('----- RESTful Service API Informations -----\n');
-	response.write('\nHTTP GET:\n');
-	response.write('\t/echo/:name - Return the element (if exists) with specific name (JSON Element).\n');
-	response.write('\t/file/:name - Return the file (if exists) with specific name.\n');
-	response.write('\t/users - Return a list of users.\n');
-	response.write('\t/user/:id - Return a user by id.\n');
-	response.write('\nHTTP POST:\n');
-	response.write('\t/mypost - Upload data (JSON element).\n');
-	response.write('\n----- ----- ----- ----- -----\n');
-	response.write('\nJSON element example\n');
-	response.write('\t{\n');
-	response.write('\t\t"name" : "Joe",\n');
-	response.write('\t}\n');
-	response.end();
 });

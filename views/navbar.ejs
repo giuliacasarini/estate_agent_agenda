@@ -3,8 +3,8 @@
     <h3 class="title-d">Proprietà</h3>
   </div>
   <span class="close-box-collapse right-boxed ion-ios-close"></span>
-  <!--
   
+  <%  var parsed_params = JSON.parse(searchParams) %>
   <div class="box-collapse-wrap form">
     <form class="form-a">
       <div class="row">
@@ -18,30 +18,32 @@
           <div class="form-group">
             <label for="Type">Categoria</label>
             <select class="form-control form-control-lg form-control-a" id="Type">
-              <option><%= searchParams %></option>
-             
+			  <% for(var i=0; i < parsed_params[0].length; i++) { %>
+				<option><%= parsed_params[0][i].categoria %></option>
+			  <% } %>
             </select>
           </div>
         </div>
         <div class="col-md-6 mb-2">
           <div class="form-group">
+            <label for="type">Tipo</label>
+            <select class="form-control form-control-lg form-control-a" id="type">
+              <% for(var i=0; i < parsed_params[1].length; i++) { %>
+				<option><%= parsed_params[1][i].tipo %></option>
+			  <% } %>
+            </select>
+          </div>
+        </div>
+		<div class="col-md-6 mb-2">
+          <div class="form-group">
             <label for="city">Città</label>
             <select class="form-control form-control-lg form-control-a" id="city">
-              <option><%= searchParams %></option>
+              <% for(var i=0; i < parsed_params[2].length; i++) { %>
+				<option><%= parsed_params[2][i].citta %></option>
+			  <% } %>
             </select>
           </div>
-        </div>-->
-        <!--<div class="col-md-6 mb-2">
-          <div class="form-group">
-            <label for="bedrooms">Bedrooms</label>
-            <select class="form-control form-control-lg form-control-a" id="bedrooms">
-              <option>Any</option>
-              <option>01</option>
-              <option>02</option>
-              <option>03</option>
-            </select>
-          </div>
-        </div>-->
+        </div>
         <div class="col-md-6 mb-2">
           <div class="form-group">
             <label for="garages">Servizi</label>
@@ -65,7 +67,7 @@
           <div class="form-group">
             <label for="price">Prezzo</label>
             <select class="form-control form-control-lg form-control-a" id="price">
-              <option><%= searchParams %></option>
+              <option></option>
             </select>
           </div>
         </div>
