@@ -2159,3 +2159,25 @@ footer .copyright-footer {
 footer .credits {
   font-size: 14px;
 }
+
+@media (max-width:575px) {
+    .display-4 {
+        font-size: 1rem;
+		
+    }
+    .day h5 {
+        background-color: #f8f9fa;
+        padding: 3px 1px 1px;
+        margin: -8px -8px 8px -8px;
+    }
+    .date {
+        padding-left: 4px;
+    }
+}
+
+@media (min-width: 576px) {
+    .day {
+        height: 4.2857vw;
+    }
+}
+

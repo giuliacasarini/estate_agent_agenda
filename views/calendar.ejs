@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>EstateAgency - Index</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/public/assets/img/favicon.png" rel="icon">
+  <link href="/public/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/public/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/public/assets/vendor/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="/public/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="/public/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/public/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../../public/assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- ======= Property Search Section ======= -->
+  <div class="click-closed"></div>
+  <!-- ======= Header/Navbar ======= -->
+  <!-- End Header/Navbar -->
+  <%- include('navbar.ejs') %>
+<div class="container-fluid">
+  <header>
+	
+    <h4 class="display-4 mb-4 text-center" style="margin-top: 120px;" id="mon"></h4>
+	
+    <div class="row d-none d-sm-flex p-1 bg-dark text-white">
+	  <button class="left button" id="prevBtn">&lang;</button>
+      <h5 class="col-sm p-1 text-center">Sunday</h5>
+      <h5 class="col-sm p-1 text-center">Monday</h5>
+      <h5 class="col-sm p-1 text-center">Tuesday</h5>
+      <h5 class="col-sm p-1 text-center">Wednesday</h5>
+      <h5 class="col-sm p-1 text-center">Thursday</h5>
+      <h5 class="col-sm p-1 text-center">Friday</h5>
+      <h5 class="col-sm p-1 text-center">Saturday</h5>
+	  <button class="right button" id="nextBtn">&rang;</button>
+    </div>
+  </header>
+  <div class="row border border-right-0 border-bottom-0" id="day-single">
+
+  </div>
+</div>
+  <!-- ======= Footer ======= -->
+  <%- include('footer.ejs') %>
+  <!-- End  Footer -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="/public/assets/vendor/jquery/jquery.min.js"></script>
+  <script src="/public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/public/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="/public/assets/vendor/php-email-form/validate.js"></script>
+  <script src="/public/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="/public/assets/vendor/scrollreveal/scrollreveal.min.js"></script>
+<script>var month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+var today = new Date();
+var label = month[today.getMonth()];
+var mm = today.getMonth(); // keep track of the month
+var year = today.getFullYear(); // keep track of the year
+var day = today.getDate();
+document.getElementById("mon").innerHTML = label + " " + year;
+//document.getElementById("days").innerHTML = day;
+loadDays();
+
+//display days
+function loadDays() {
+	var daysInMonths = [31, (((year%4==0)&&(year%100!=0))||(year%400==0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+	count = 0;
+	for (i = 1, len = daysInMonths[mm], text = ""; i < len + 1; i++) {    
+		text += "<div class='day col-sm p-2 border border-left-0 border-top-0 text-muted'> <h5 class='row align-items-center'><span class='date col-1'>" + i + "</span><small class='col d-sm-none text-center text-muted'>Thursday</small><span class='col-1'></span></h5><p class='d-sm-none'>No events</p></div>";
+		count++;
+		if (count == 7){
+		 text += "<div class='w-100'></div>"
+		 count = 0;
+		}
+ 	}
+	document.getElementById("day-single").innerHTML = text;
+}
+
+document.getElementById("prevBtn").addEventListener("click", previousMonth);
+
+function previousMonth() {
+    mm -= 1; // decrement the month
+    if (mm < 0) { // if we go before January
+        mm = 11; // go to December
+        year -= 1; // of previous year
+    }
+    label = month[mm];
+    document.getElementById("mon").innerHTML = label + " " + year;
+	loadDays();
+}
+
+document.getElementById("nextBtn").addEventListener("click", nextMonth);
+function nextMonth(){
+    mm += 1; // increment month
+    if (mm > 11) { // if we go after December
+        mm = 0; // go to January
+        year += 1; // of next year
+    }
+	label = month[mm];
+    document.getElementById("mon").innerHTML = label + " " + year;
+	loadDays();
+}
+</script>
+  <!-- Template Main JS File -->
+  <script src="/public/assets/js/main.js"></script>
+
+</body>
+
+</html>

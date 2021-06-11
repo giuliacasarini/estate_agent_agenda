@@ -75,7 +75,7 @@ server.get('/home', function(request, response) {
 
 server.get('/appuntamenti', function(request, response) {
 	if (request.session.loggedin) {
-		response.render('appuntamenti');
+		response.render('calendar');
 	} else {
 		response.send('Please login to view this page!');
 	}
