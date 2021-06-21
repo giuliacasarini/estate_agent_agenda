@@ -6,18 +6,18 @@
   
   <%  var parsed_params = JSON.parse(searchParams) %>
   <div class="box-collapse-wrap form">
-    <form class="form-a">
+    <form class="form-a" action="/ricercaproprieta" id="ricerca" method="post">
       <div class="row">
         <div class="col-md-12 mb-2">
           <div class="form-group">
-            <label for="Type">Keyword</label>
-            <input type="text" class="form-control form-control-lg form-control-a" placeholder="Keyword">
+            <label for="Type">Cerca</label>
+            <input type="text" class="form-control form-control-lg form-control-a" id="cerca" placeholder="Cerca">
           </div>
         </div>
         <div class="col-md-6 mb-2">
           <div class="form-group">
             <label for="Type">Categoria</label>
-            <select class="form-control form-control-lg form-control-a" id="Type">
+            <select class="form-control form-control-lg form-control-a" id="category">
 			  <% for(var i=0; i < parsed_params[0].length; i++) { %>
 				<option><%= parsed_params[0][i].categoria %></option>
 			  <% } %>
@@ -47,7 +47,7 @@
         <div class="col-md-6 mb-2">
           <div class="form-group">
             <label for="garages">Servizi</label>
-            <select class="form-control form-control-lg form-control-a" id="garages">
+            <select class="form-control form-control-lg form-control-a" id="services">
               <option></option>
             </select>
           </div>
@@ -72,7 +72,7 @@
           </div>
         </div>
         <div class="col-md-12">
-          <button type="submit" class="btn btn-b">Cerca Proprietà</button>
+          <button type="submit" class="btn btn-b" id="tastoCerca" function=searchValidate()>Cerca Proprietà</button>
         </div>
       </div>
     </form>
@@ -101,9 +101,7 @@
           <li class="nav-item">
             <a class="nav-link" href="/clienti">Clienti</a>
           </li>
-         <!-- <li class="nav-item">
-            <a class="nav-link" href="blog-grid.html">Blog</a>
-          </li>-->
+         
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="/proprieta" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Proprietà
@@ -118,10 +116,28 @@
           <li class="nav-item">
             <a class="nav-link" href="/agenti">Agenti</a>
           </li>
-        </ul>
+		 </ul>
       </div>
+	  <button type="button" class="btn btn-b-n d-none d-md-block" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-expanded="false">
+        <a href="/logout" style="color:white"><span class="" aria-hidden="true" >Logout</span></a>
+      </button>
       <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-expanded="false">
         <span class="fa fa-search" aria-hidden="true"></span>
       </button>
     </div>
   </nav>
+  
+  <script>
+  function searchValidate(){
+	if( $('#category').val() != "" ){
+		$('#ricerca').submit();
+	} 
+	}
+	
+	$( "#tastoCerca" ).click(function( event ){
+	event.preventDefault();
+	searchValidate();
+		
+	});
+ 
+  </script>

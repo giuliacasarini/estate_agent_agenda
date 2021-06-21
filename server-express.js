@@ -83,7 +83,29 @@ server.get('/appuntamenti', function(request, response) {
 
 server.get('/clienti', function(request, response) {
 	if (request.session.loggedin) {
-		response.render('clienti');
+		dbconnection.query('SELECT * FROM cliente', function(error, results, fields) {
+			if (error) throw error;
+			if (results) {
+				var cliente = JSON.stringify(results);
+				response.render('clients-grid', {cliente:cliente});
+			}
+			else{
+				response.render('clients-grid');
+			}
+		});	
+	} else {
+		response.send('Please login to view this page!');
+	}
+});
+
+server.get('/clienti/:id', function(request, response) {
+	if (request.session.loggedin) {
+		dbconnection.query('SELECT * FROM cliente WHERE id = ?', [request.params.id], function(error, results, fields) {
+			if (results) {
+				var cliente = JSON.stringify(results);
+				response.render('client-single', {cliente:cliente});
+			}
+		});	
 	} else {
 		response.send('Please login to view this page!');
 	}
@@ -91,7 +113,16 @@ server.get('/clienti', function(request, response) {
 
 server.get('/agenti', function(request, response) {
 	if (request.session.loggedin) {
-		response.render('agents-grid');
+		dbconnection.query('SELECT * FROM agente', function(error, results, fields) {
+			if (error) throw error;
+			if (results) {
+				var agente = JSON.stringify(results);
+				response.render('agents-grid', {agente:agente});
+			}
+			else{
+				response.render('agents-grid');
+			}
+		});	
 	} else {
 		response.send('Please login to view this page!');
 	}
@@ -99,7 +130,12 @@ server.get('/agenti', function(request, response) {
 
 server.get('/agenti/:id', function(request, response) {
 	if (request.session.loggedin) {
-		response.render('agent-single');
+		dbconnection.query('SELECT * FROM agente WHERE id = ?', [request.params.id], function(error, results, fields) {
+			if (results) {
+				var agente = JSON.stringify(results);
+				response.render('agent-single', {agente:agente});
+			}
+		});
 	} else {
 		response.send('Please login to view this page!');
 	}
@@ -185,3 +221,8 @@ server.get('/proprieta/:categoria/:contratto', function(request, response) {
 		response.send('Please login to view this page!');
 	}
 });
+
+server.post('/ricercaproprieta', function(request, response) {
+	 console.log(request.category);
+	 console.log(request.type);
+});	 
