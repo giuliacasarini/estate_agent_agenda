@@ -69,7 +69,7 @@ server.get('/home', function(request, response) {
 	if (request.session.loggedin) {
 		response.render('index');
 	} else {
-		response.send('Please login to view this page!');
+		response.redirect('/');
 	}
 });
 
@@ -77,7 +77,7 @@ server.get('/appuntamenti', function(request, response) {
 	if (request.session.loggedin) {
 		response.render('calendar');
 	} else {
-		response.send('Please login to view this page!');
+		response.redirect('/');
 	}
 });
 
@@ -94,7 +94,7 @@ server.get('/clienti', function(request, response) {
 			}
 		});	
 	} else {
-		response.send('Please login to view this page!');
+		response.redirect('/');
 	}
 });
 
@@ -107,7 +107,7 @@ server.get('/clienti/:id', function(request, response) {
 			}
 		});	
 	} else {
-		response.send('Please login to view this page!');
+		response.redirect('/');
 	}
 });
 
@@ -124,7 +124,7 @@ server.get('/agenti', function(request, response) {
 			}
 		});	
 	} else {
-		response.send('Please login to view this page!');
+		response.redirect('/');
 	}
 });
 
@@ -137,7 +137,7 @@ server.get('/agenti/:id', function(request, response) {
 			}
 		});
 	} else {
-		response.send('Please login to view this page!');
+		response.redirect('/');
 	}
 });
 
@@ -155,7 +155,7 @@ server.get('/proprieta', function(request, response) {
 		});	
 
 	} else {
-		response.send('Please login to view this page!');
+		response.redirect('/');
 	}
 });
 
@@ -169,7 +169,7 @@ server.get('/proprieta/:id', function(request, response) {
 		});	
 	}
 	else {
-		response.send('Please login to view this page!');
+		response.redirect('/');
 	}
 });
 
@@ -218,7 +218,7 @@ server.get('/proprieta/:categoria/:contratto', function(request, response) {
 		}
 		
 	} else {
-		response.send('Please login to view this page!');
+		response.redirect('/');
 	}
 });
 
@@ -236,6 +236,6 @@ server.post('/ricercaproprieta', function(request, response) {
 		});	
 
 	} else {
-		response.send('Please login to view this page!');
+		response.redirect('/');
 	}
 });	
