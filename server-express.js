@@ -223,6 +223,19 @@ server.get('/proprieta/:categoria/:contratto', function(request, response) {
 });
 
 server.post('/ricercaproprieta', function(request, response) {
-	 console.log(request.category);
-	 console.log(request.type);
-});	 
+	 if (request.session.loggedin) {
+		dbconnection.query('SELECT * FROM proprieta', function(error, results, fields) {
+			if (error) throw error;
+			if (results) {
+				var proprieta = JSON.stringify(results);
+				response.render('property-grid', {proprieta:proprieta});
+			}
+			else{
+				response.render('property-grid');
+			}
+		});	
+
+	} else {
+		response.send('Please login to view this page!');
+	}
+});	
