@@ -591,6 +591,8 @@ a:hover {
   background-color: #26c2e9;
   color: #ffffff;
   border-radius: 0;
+  border-width: medium;
+  border-color: white;
 }
 
 .btn.btn-b-n:hover {
@@ -1075,7 +1077,7 @@ a:hover {
 
 @media (min-width: 768px) {
   .intro .intro-subtitle {
-    font-size: 2.5rem;
+    font-size: 5.5rem;
   }
 }
 
@@ -1156,18 +1158,24 @@ a:hover {
   .card-box-a,
   .card-box-b,
   .card-box-c,
-  .card-box-d {
+  .card-box-d,
+  .card-margin{
     margin-bottom: 2.5rem;
   }
 }
 
 @media (min-width: 768px) {
-  .grid .card-box-a,
+  .grid .card-box-a{
+	  margin-bottom: 8rem;
+  }
   .grid .card-box-b,
   .grid .card-box-c,
-  .grid .card-box-d {
-    margin-bottom: 2.5rem;
+  .grid .card-box-c,
+  .grid .card-margin {
+    margin-bottom: 8rem;
+	margin-top: 10rem;
   }
+ 
 }
 
 .card-box-a,
@@ -1177,6 +1185,9 @@ a:hover {
   overflow: hidden;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+}
+.card-margin{
+	margin-bottom: 100px;
 }
 
 .card-box-a .img-a,
@@ -1689,23 +1700,34 @@ a:hover {
   transition: all .2s ease-in-out;
   padding: 15px 40px 15px 35px;
 }
-
+.card-margin{
+	margin-bottom:100px;
+}
 @media (min-width: 768px) {
   .card-box-d .card-overlay-hover {
     padding: 5px 15px 5px 10px;
   }
+  .card-margin{
+	margin-bottom:100px;
+}
 }
 
 @media (min-width: 992px) {
   .card-box-d .card-overlay-hover {
     padding: 5px 40px 5px 35px;
   }
+  .card-margin{
+	margin-bottom:100px;
+}
 }
 
 @media (min-width: 1200px) {
   .card-box-d .card-overlay-hover {
     padding: 15px 40px 5px 35px;
   }
+  .card-margin{
+	margin-bottom:100px;
+}
 }
 
 .card-box-d .title-d {
@@ -1716,12 +1738,18 @@ a:hover {
   transform: translateY(-20px);
   opacity: 0;
 }
+.card-margin{
+	margin-bottom:100px;
+}
 
 @media (min-width: 768px) {
   .card-box-d .title-d {
     font-size: 1.1rem;
     margin: .5rem 0;
   }
+  .card-margin{
+	margin-bottom:100px;
+}
 }
 
 @media (min-width: 992px) {
@@ -1729,6 +1757,9 @@ a:hover {
     font-size: 1.5rem;
     margin: 1rem 0;
   }
+  .card-margin{
+	margin-bottom:100px;
+}
 }
 
 @media (min-width: 1200px) {
@@ -1736,6 +1767,9 @@ a:hover {
     font-size: 2rem;
     margin: 1rem 0;
   }
+  .card-margin{
+	margin-bottom:100px;
+}
 }
 
 .card-box-d .content-d {
@@ -1743,12 +1777,18 @@ a:hover {
   transition: .5s ease-in-out;
   transform: translateY(-40px);
 }
+.card-margin{
+	margin-bottom:100px;
+}
 
 @media (min-width: 768px) {
   .card-box-d .content-d {
     font-size: .8rem;
     margin: .5rem 0;
   }
+  .card-margin{
+	margin-bottom:100px;
+}
 }
 
 @media (min-width: 768px) {
@@ -1756,6 +1796,9 @@ a:hover {
     margin-bottom: 8px;
     font-size: .8rem;
   }
+  .card-margin{
+	margin-bottom:100px;
+}
 }
 
 @media (min-width: 992px) {
@@ -1763,13 +1806,18 @@ a:hover {
     margin-bottom: 12px;
     font-size: 1rem;
   }
+  .card-margin{
+	margin-bottom:100px;
+}
 }
 
 .card-box-d .info-agents {
   opacity: 0;
   transition: .5s ease-in-out;
 }
-
+.card-margin{
+	margin-bottom:100px;
+}
 .card-box-d .card-footer-d {
   transition: .5s ease-in-out;
   transform: translateY(40px);

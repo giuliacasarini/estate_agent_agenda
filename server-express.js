@@ -34,6 +34,11 @@ server.get('/', function(request, response) {
 	}
 });
 
+server.get('/logout', function(request, response) {
+	request.session.loggedin = false;
+	response.render('login');
+});
+
 server.post('/login', function(request, response) {
 	var username = request.body.email;
 	var password = request.body.password;
@@ -69,7 +74,7 @@ server.get('/home', function(request, response) {
 	if (request.session.loggedin) {
 		response.render('index');
 	} else {
-		response.send('Please login to view this page!');
+		response.redirect('/');
 	}
 });
 
@@ -77,31 +82,67 @@ server.get('/appuntamenti', function(request, response) {
 	if (request.session.loggedin) {
 		response.render('calendar');
 	} else {
-		response.send('Please login to view this page!');
+		response.redirect('/');
 	}
 });
 
 server.get('/clienti', function(request, response) {
 	if (request.session.loggedin) {
-		response.render('clienti');
+		dbconnection.query('SELECT * FROM cliente', function(error, results, fields) {
+			if (error) throw error;
+			if (results) {
+				var cliente = JSON.stringify(results);
+				response.render('clients-grid', {cliente:cliente});
+			}
+			else{
+				response.render('clients-grid');
+			}
+		});	
 	} else {
-		response.send('Please login to view this page!');
+		response.redirect('/');
+	}
+});
+
+server.get('/clienti/:id', function(request, response) {
+	if (request.session.loggedin) {
+		dbconnection.query('SELECT * FROM cliente WHERE id = ?', [request.params.id], function(error, results, fields) {
+			if (results) {
+				var cliente = JSON.stringify(results);
+				response.render('client-single', {cliente:cliente});
+			}
+		});	
+	} else {
+		response.redirect('/');
 	}
 });
 
 server.get('/agenti', function(request, response) {
 	if (request.session.loggedin) {
-		response.render('agents-grid');
+		dbconnection.query('SELECT * FROM agente', function(error, results, fields) {
+			if (error) throw error;
+			if (results) {
+				var agente = JSON.stringify(results);
+				response.render('agents-grid', {agente:agente});
+			}
+			else{
+				response.render('agents-grid');
+			}
+		});	
 	} else {
-		response.send('Please login to view this page!');
+		response.redirect('/');
 	}
 });
 
 server.get('/agenti/:id', function(request, response) {
 	if (request.session.loggedin) {
-		response.render('agent-single');
+		dbconnection.query('SELECT * FROM agente WHERE id = ?', [request.params.id], function(error, results, fields) {
+			if (results) {
+				var agente = JSON.stringify(results);
+				response.render('agent-single', {agente:agente});
+			}
+		});
 	} else {
-		response.send('Please login to view this page!');
+		response.redirect('/');
 	}
 });
 
@@ -119,7 +160,7 @@ server.get('/proprieta', function(request, response) {
 		});	
 
 	} else {
-		response.send('Please login to view this page!');
+		response.redirect('/');
 	}
 });
 
@@ -133,7 +174,7 @@ server.get('/proprieta/:id', function(request, response) {
 		});	
 	}
 	else {
-		response.send('Please login to view this page!');
+		response.redirect('/');
 	}
 });
 
@@ -182,6 +223,34 @@ server.get('/proprieta/:categoria/:contratto', function(request, response) {
 		}
 		
 	} else {
-		response.send('Please login to view this page!');
+		response.redirect('/');
 	}
 });
+
+server.post('/ricercaproprieta', function(request, response) {
+	 if (request.session.loggedin) {
+		 query = "SELECT * FROM proprieta WHERE prezzo >= " + request.body.pricemin + " AND prezzo <= " + request.body.pricemax + " ";
+		 if (request.body.category != null){
+			 query += "AND categoria = '" + request.body.category + "' ";
+		 }
+		 if (request.body.type != null){
+			 query += "AND tipo = '" + request.body.type + "' ";
+		 }
+		 if (request.body.city != null){
+			 query += "AND citta = '" + request.body.city + "' ";
+		 }
+		dbconnection.query(query, function(error, results, fields) {
+			if (error) throw error;
+			if (results) {
+				var proprieta = JSON.stringify(results);
+				response.render('property-grid', {proprieta:proprieta});
+			}
+			else{
+				response.render('property-grid');
+			}
+		});	
+
+	} else {
+		response.redirect('/');
+	}
+});	
