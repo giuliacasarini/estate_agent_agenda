@@ -254,3 +254,11 @@ server.post('/ricercaproprieta', function(request, response) {
 		response.redirect('/');
 	}
 });	
+
+server.get('/popupcalendario/:giorno', function(request, response) {
+	if (request.session.loggedin) {
+		response.render('calendar-popup', {giorno:request.params.giorno});
+	} else {
+		response.redirect('/');
+	}
+});

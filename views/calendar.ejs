@@ -85,7 +85,7 @@ function loadDays() {
 	var daysInMonths = [31, (((year%4==0)&&(year%100!=0))||(year%400==0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 	count = 0;
 	for (i = 1, len = daysInMonths[mm], text = ""; i < len + 1; i++) {    
-		text += "<div class='day col-sm p-2 border border-left-0 border-top-0 text-muted'> <h5 class='row align-items-center'><span class='date col-1'>" + i + "</span><small class='col d-sm-none text-center text-muted'>Thursday</small><span class='col-1'></span></h5><p class='d-sm-none'>No events</p></div>";
+		text += "<div class='day col-sm p-2 border border-left-0 border-top-0 text-muted'> <h5 class='row align-items-center'><span class='date col-1'><button onclick='popup(this)'>" + i + "</button></span></h5></div>";
 		count++;
 		if (count == 7){
 		 text += "<div class='w-100'></div>"
@@ -119,6 +119,16 @@ function nextMonth(){
     document.getElementById("mon").innerHTML = label + " " + year;
 	loadDays();
 }
+
+
+function popup(el){
+	var w = 400;
+	var h = 250;
+	var l = Math.floor((screen.width-w)/2);
+	var t = Math.floor((screen.height-h)/2);
+	window.open("popupcalendario/" + el.textContent,"","width=" + w + ",height=" + h + ",top=" + t + ",left=" + l);
+}
+
 </script>
   <!-- Template Main JS File -->
   <script src="/public/assets/js/main.js"></script>
