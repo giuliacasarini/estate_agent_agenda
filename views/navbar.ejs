@@ -8,16 +8,10 @@
   <div class="box-collapse-wrap form">
     <form class="form-a" action="/ricercaproprieta" id="ricerca" method="post">
       <div class="row">
-        <div class="col-md-12 mb-2">
-          <div class="form-group">
-            <label for="Type">Nome</label>
-            <input type="text" class="form-control form-control-lg form-control-a" name="name" placeholder="Cerca per nome">
-          </div>
-        </div>
         <div class="col-md-6 mb-2">
           <div class="form-group">
             <label for="Type">Categoria</label>
-            <select class="form-control form-control-lg form-control-a" name="category">
+            <select class="form-control form-control-lg form-control-a" id="category" name="category">
 			  <option hidden disabled selected value>Seleziona</option>
 			  <% for(var i=0; i < parsed_params[0].length; i++) { %>
 				<option><%= parsed_params[0][i].categoria %></option>
@@ -28,7 +22,7 @@
         <div class="col-md-6 mb-2">
           <div class="form-group">
             <label for="type">Tipo</label>
-            <select class="form-control form-control-lg form-control-a" name="type">
+            <select class="form-control form-control-lg form-control-a" id="type" name="type">
 			  <option hidden disabled selected value>Seleziona</option>
               <% for(var i=0; i < parsed_params[1].length; i++) { %>
 				<option><%= parsed_params[1][i].tipo %></option>
@@ -39,7 +33,7 @@
 		<div class="col-md-6 mb-2">
           <div class="form-group">
             <label for="city">Città</label>
-            <select class="form-control form-control-lg form-control-a" name="city">
+            <select class="form-control form-control-lg form-control-a" id="city" name="city">
 			  <option hidden disabled selected value>Seleziona</option>
               <% for(var i=0; i < parsed_params[2].length; i++) { %>
 				<option><%= parsed_params[2][i].citta %></option>
@@ -50,10 +44,10 @@
         <div class="col-md-6 mb-2">
           <div class="form-group">
             <label for="services">Servizi</label> <br>     
-			 <input type="checkbox" name="service_1" value="air"> Aria Condizionata<br>	
-			 <input type="checkbox" name="service_2" value="wifi"> Wifi<br>            
-             <input type="checkbox" name="service_3" value="cleaning"> Pulizie<br>
-			 <input type="checkbox" name="service_4" value="garage"> Posto Auto<br> 
+			 <input type="checkbox" id="service_1" name="service_1" value="air"> Aria Condizionata<br>	
+			 <input type="checkbox" id="service_2" name="service_2" value="wifi"> Wifi<br>            
+             <input type="checkbox" id="service_3" name="service_3" value="cleaning"> Pulizie<br>
+			 <input type="checkbox" id="service_4" name="service_4" value="garage"> Posto Auto<br> 
           </div>
         </div>
         <div class="col-md-6 mb-2">

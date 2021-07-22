@@ -34,6 +34,11 @@ server.get('/', function(request, response) {
 	}
 });
 
+server.get('/logout', function(request, response) {
+	request.session.loggedin = false;
+	response.render('login');
+});
+
 server.post('/login', function(request, response) {
 	var username = request.body.email;
 	var password = request.body.password;
@@ -224,7 +229,17 @@ server.get('/proprieta/:categoria/:contratto', function(request, response) {
 
 server.post('/ricercaproprieta', function(request, response) {
 	 if (request.session.loggedin) {
-		dbconnection.query('SELECT * FROM proprieta', function(error, results, fields) {
+		 query = "SELECT * FROM proprieta WHERE prezzo >= " + request.body.pricemin + " AND prezzo <= " + request.body.pricemax + " ";
+		 if (request.body.category != null){
+			 query += "AND categoria = '" + request.body.category + "' ";
+		 }
+		 if (request.body.type != null){
+			 query += "AND tipo = '" + request.body.type + "' ";
+		 }
+		 if (request.body.city != null){
+			 query += "AND citta = '" + request.body.city + "' ";
+		 }
+		dbconnection.query(query, function(error, results, fields) {
 			if (error) throw error;
 			if (results) {
 				var proprieta = JSON.stringify(results);
