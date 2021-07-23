@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title><%= giorno %></title>
+  <title>Inserisci un nuovo evento per il <%= data %></title>
   <meta content="" name="description">
   <meta content="" name="keywords">
   <link href="/public/assets/img/favicon.png" rel="icon">
@@ -22,12 +22,12 @@
 
 <body>
   <main id="main">
-    <section class="intro-single">
+    <section>
       <div class="container">
         <div class="row">
           <div class="col-md-12 col-lg-8">
             <div class="title-single-box">
-              <h1 class="title-single">Inserisci nuovo evento</h1>
+              <h1 class="title-single">Inserisci un nuovo evento per il <%= data %></h1>
                </div>
           </div>
           
@@ -40,26 +40,44 @@
           <div class="col-sm-12 section-t8">
             <div class="row">
               <div class="col-md-7">
-                <form action="login" method="post" role="form" class="php-email-form">
+                <form action="/nuovoevento" method="post" role="form" class="php-email-form">
                   <div class="row">
+					<input type="hidden" id="eventdate" name="eventdate" value="<%= data %>">
                     <div class="col-md-6 mb-3">
                       <div class="form-group">
-                        <input type="email" name="email" id="email" class="form-control form-control-lg form-control-a" placeholder="Email" data-rule="email" data-msg="Please enter a valid email">
+					   <label for="timestart">Seleziona un orario di inizio:</label>
+					   <input type="time" id="timestart" name="timestart" min="09:00" max="18:00" required>
                         <div class="validate"></div>
                       </div>
                     </div>
-                    <div class="col-md-6 mb-3">
+					<div class="col-md-6 mb-3">
                       <div class="form-group">
-                        <input name="password" type="password" id="password" class="form-control form-control-lg form-control-a" placeholder="Password" data-rule="text" data-msg="Please enter at least 4 chars">
+					   <label for="timeend">Seleziona un orario di fine:</label>
+					   <input type="time" id="timeend" name="timeend" min="09:00" max="18:00" required>
+                        <div class="validate"></div>
+                      </div>
+                    </div>
+					<div class="col-md-6 mb-3">
+                      <div class="form-group">
+                        <input type="text" name="where" id="where" class="form-control form-control-lg form-control-a" placeholder="Luogo" >
+                        <div class="validate"></div>
+                      </div>
+                    </div>
+					<div class="col-md-6 mb-3">
+                      <div class="form-group">
+                        <input type="text" name="why" id="why" class="form-control form-control-lg form-control-a" placeholder="Scopo" >
                         <div class="validate"></div>
                       </div>
                     </div>
                     <div class="col-md-12 text-center">
-                      <input type="submit" value="Login" id="tastoLogin" class="btn btn-a">
-                      
+                      <input type="submit" value="Inserisci" id="tastoInserisciEvento" class="btn btn-a">
+                      <br><br>
                     </div>
                   </div>
                 </form>
+
+
+
               </div>
               
             </div>
@@ -69,10 +87,6 @@
     </section>
 
   </main>
-  
-   <!-- ======= Footer ======= -->
-  <%- include('footer.ejs') %>
-  <!-- End  Footer -->
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
   <div id="preloader"></div>

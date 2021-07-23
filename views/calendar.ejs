@@ -70,7 +70,10 @@
   <script src="/public/assets/vendor/php-email-form/validate.js"></script>
   <script src="/public/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
   <script src="/public/assets/vendor/scrollreveal/scrollreveal.min.js"></script>
-<script>var month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+<script>
+var events = <%= eventi %>;
+console.log(events);
+var month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 var today = new Date();
 var label = month[today.getMonth()];
 var mm = today.getMonth(); // keep track of the month
@@ -122,11 +125,12 @@ function nextMonth(){
 
 
 function popup(el){
-	var w = 400;
-	var h = 250;
+	var w = 500;
+	var h = 400;
 	var l = Math.floor((screen.width-w)/2);
 	var t = Math.floor((screen.height-h)/2);
-	window.open("popupcalendario/" + el.textContent,"","width=" + w + ",height=" + h + ",top=" + t + ",left=" + l);
+	var mmm = mm + 1;
+	window.open("popupcalendario/" + year + "-" + mmm + "-" + el.textContent,"","width=" + w + ",height=" + h + ",top=" + t + ",left=" + l);
 }
 
 </script>

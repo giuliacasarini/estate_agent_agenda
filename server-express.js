@@ -80,7 +80,17 @@ server.get('/home', function(request, response) {
 
 server.get('/appuntamenti', function(request, response) {
 	if (request.session.loggedin) {
-		response.render('calendar');
+		dbconnection.query('SELECT * FROM appuntamento', function(error, results, fields) {
+			if (error) throw error;
+			if (results) {
+				var eventi = JSON.stringify(results);
+				response.render('calendar', {eventi:eventi});
+			}
+			else{
+				response.render('calendar');
+			}
+		});	
+
 	} else {
 		response.redirect('/');
 	}
@@ -255,9 +265,30 @@ server.post('/ricercaproprieta', function(request, response) {
 	}
 });	
 
-server.get('/popupcalendario/:giorno', function(request, response) {
+server.get('/popupcalendario/:data', function(request, response) {
 	if (request.session.loggedin) {
-		response.render('calendar-popup', {giorno:request.params.giorno});
+		response.render('calendar-popup', {data:request.params.data});
+	} else {
+		response.redirect('/');
+	}
+});
+
+server.post('/nuovoevento', function(request, response) {
+	var giorno = request.body.eventdate;
+	var orarioinizio = request.body.timestart;
+	var orariofine = request.body.timeend;
+	var luogo = request.body.where;
+	var scopo = request.body.why;
+	var id_agente = request.session.username;
+	
+	if (request.session.loggedin) {
+		dbconnection.query("INSERT INTO appuntamento (id_agente, giorno, luogo, scopo, orarioinizio, orariofine) VALUES (?, ?, ?, ?, ?, ?)", [id_agente, giorno, luogo, scopo, orarioinizio, orariofine], function(error, results, fields) {
+			if (error) throw error;
+			if (results) {
+				response.redirect('/appuntamenti');
+			}
+		});	
+
 	} else {
 		response.redirect('/');
 	}
