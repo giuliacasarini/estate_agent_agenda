@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var dbconnection = require('./dbcon');
 var path = require('path');
 var ejs = require('ejs');
+var multer = require('multer');
 
 var server = express();
 server.use(bodyParser.json()); // support json encoded bodies
@@ -24,7 +25,17 @@ server.listen(5678, function () {
 	searchParams();
 });
 
+var storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'public/assets/img/');
+    },
+  
+    filename: function(req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
 
+var upload = multer({ storage: storage })
 
 server.get('/', function(request, response) {
 	if (request.session.loggedin) {
@@ -340,21 +351,38 @@ server.get('/inserisciproprieta', function(request, response) {
 	}
 });
 
-server.post('/nuovaproprieta', function(request, response) {
+server.post('/nuovaproprieta', upload.array('immagini'), function(request, response) {
 	var indirizzo = request.body.ind;
 	var citta = request.body.citta;
 	var prezzo = request.body.prezzo;
 	var categoria = request.body.categoria;
 	var tipo = request.body.tipo;
 	var vendita = request.body.contrattoVendita;
+	if (vendita == "contrattoVendita"){
+		vendita = 1;
+	}
+	else{
+		vendita = 0;
+	}
 	var affitto = request.body.contrattoAffitto;
-	var immagini = request.body.immagini;
+	if (affitto == "contrattoAffitto"){
+		affitto = 1;
+	}
+	else{
+		affitto = 0;
+	}
 	
 	if (request.session.loggedin) {
-		dbconnection.query("INSERT INTO cliente (nome, cognome, email, telefono) VALUES (?, ?, ?, ?)", [nome, cognome, email, telefono], function(error, results, fields) {
+		dbconnection.query("INSERT INTO proprieta (id_proprietario, disponibile, prezzo, affitto, vendita, via, citta, categoria, tipo) VALUES (1, 1, ?, ?, ?, ?, ?, ?, ?)", [prezzo, affitto, vendita, indirizzo, citta, categoria, tipo], function(error, results, fields) {
 			if (error) throw error;
 			if (results) {
-				response.redirect('/clienti');
+				var files = request.files;
+				for (var i=0; i <  files.length; i++) {
+					dbconnection.query("INSERT INTO immagine (percorso, id_proprieta) VALUES (?, ?)", [files[i].filename, results.insertId], function(error, results, fields) {
+					if (error) throw error;
+					});
+				}
+				response.redirect('/proprieta');
 			}
 		});	
 

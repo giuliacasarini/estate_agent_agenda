@@ -5,38 +5,24 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>EstateAgency Bootstrap Template - Index</title>
+  <title>Agenzia Immobiliare</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
   <link href="/public/assets/img/favicon.png" rel="icon">
   <link href="/public/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
   <link href="/public/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="/public/assets/vendor/ionicons/css/ionicons.min.css" rel="stylesheet">
   <link href="/public/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
   <link href="/public/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="/public/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
   <link href="/public/assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: EstateAgency - v2.2.1
-  * Template URL: https://bootstrapmade.com/real-estate-agency-bootstrap-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
 
-  <!-- ======= Property Search Section ======= -->
   <div class="click-closed"></div>
 
 
@@ -52,8 +38,8 @@
         <div class="row">
           <div class="col-md-12 col-lg-8">
             <div class="title-single-box">
-              <h1 class="title-single">Our Amazing Properties</h1>
-              <span class="color-text-a">Grid Properties</span>
+              <h1 class="title-single">Propert&agrave;</h1>
+              <!--<span class="color-text-a">Grid Properties</span>-->
             </div>
           </div>
           <div class="col-md-12 col-lg-4">
@@ -63,7 +49,7 @@
                   <a href="#">Home</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                  Properties Grid
+                  <!--Properties Grid-->
                 </li>
               </ol>
             </nav>
@@ -79,7 +65,7 @@
 		<div class="col-sm-9">
 		<a href="/inserisciproprieta"><button style="float:right;">+</button></a>
 		</div>
-          <div class="col-sm-3">
+          <!--<div class="col-sm-3">
             <div class="grid-option">
               <form>
                 <select class="custom-select">
@@ -90,7 +76,7 @@
                 </select>
               </form>
             </div>
-          </div>
+          </div>-->
 		  <%  var parsed_proprieta = JSON.parse(proprieta) %>
 		  <% for(var i=0; i <  parsed_proprieta.length; i++) { %>
           <div class="col-md-4">
@@ -108,7 +94,7 @@
                     <div class="price-box d-flex">
                       <span class="price-a"><%= parsed_proprieta[i].via %> </span>
                     </div>
-                    <a href="/proprieta/<%= parsed_proprieta[i].id %>" class="link-a">Click here to view
+                    <a href="/proprieta/<%= parsed_proprieta[i].id %>" class="link-a">Guarda la propriet&agrave;
                       <span class="ion-ios-arrow-forward"></span>
                     </a>
                   </div>

@@ -5,33 +5,23 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>EstateAgency Bootstrap Template - Agent Single</title>
+  <title>Agenzia Immobiliare</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-
-  <!-- Favicons -->
   <link href="/public/assets/img/favicon.png" rel="icon">
   <link href="/public/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
   <link href="/public/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="/public/assets/vendor/ionicons/css/ionicons.min.css" rel="stylesheet">
   <link href="/public/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
   <link href="/public/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="/public/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
   <link href="/public/assets/css/style.css" rel="stylesheet">
 
   
 </head>
 
 <body>
-
-  <!-- ======= Property Search Section ======= -->
   <div class="click-closed"></div>
   <!-- ======= Header/Navbar ======= -->
   <%- include('navbar.ejs') %>
@@ -57,10 +47,10 @@
                   <a href="#">Home</a>
                 </li>
                 <li class="breadcrumb-item">
-                  <a href="#">Agents</a>
+                  <a href="#">Agenti</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                  Margaret Stone
+                  <%= parsed_agente[0].nome %>
                 </li>
               </ol>
             </nav>
@@ -97,7 +87,7 @@
                     </p>
                     <div class="info-agents color-a">
                       <p>
-                        <strong>Phone: </strong>
+                        <strong>Telefono: </strong>
                         <span class="color-text-a"> <%= parsed_agente[0].telfono %> </span>
                       </p>
                       <p>
@@ -113,11 +103,11 @@
           </div>
           <div class="col-md-12 section-t8">
             <div class="title-box-d">
-              <h3 class="title-d">My Properties (6)</h3>
+              <h3 class="title-d">Le mie propert&agrave;</h3>
             </div>
           </div>
           <div class="row property-grid grid">
-            <div class="col-sm-12">
+            <!--<div class="col-sm-12">
               <div class="grid-option">
                 <form>
                   <select class="custom-select">
@@ -127,7 +117,7 @@
                     <option value="3">For Sale</option>
                   </select>
                 </form>
-              </div>
+              </div>-->
             </div>
             <div class="col-md-4">
               <div class="card-box-a card-shadow">
@@ -159,15 +149,15 @@
                           </span>
                         </li>
                         <li>
-                          <h4 class="card-info-title">Beds</h4>
+                          <h4 class="card-info-title">Letti</h4>
                           <span>2</span>
                         </li>
                         <li>
-                          <h4 class="card-info-title">Baths</h4>
+                          <h4 class="card-info-title">Bagni</h4>
                           <span>4</span>
                         </li>
                         <li>
-                          <h4 class="card-info-title">Garages</h4>
+                          <h4 class="card-info-title">Garage</h4>
                           <span>1</span>
                         </li>
                       </ul>
@@ -176,7 +166,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
+            <!--<div class="col-md-4">
               <div class="card-box-a card-shadow">
                 <div class="img-box-a">
                   <img src="/public/assets/img/property-3.jpg" alt="" class="img-a img-fluid">
@@ -410,13 +400,13 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div>-->
           </div>
         </div>
       </div>
-    </section><!-- End Agent Single -->
+    </section>
 
-  </main><!-- End #main -->
+  </main>
 
   <!-- ======= Footer ======= -->
   <%- include('footer.ejs') %>

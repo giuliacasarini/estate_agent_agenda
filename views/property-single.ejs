@@ -5,41 +5,23 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>EstateAgency Bootstrap Template - Index</title>
+  <title>Agenzia Immobiliare</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-
-  <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
   <link href="/public/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="/public/assets/vendor/ionicons/css/ionicons.min.css" rel="stylesheet">
   <link href="/public/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
   <link href="/public/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="/public/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
   <link href="/public/assets/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: EstateAgency - v2.2.1
-  * Template URL: https://bootstrapmade.com/real-estate-agency-bootstrap-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
 
-  <!-- ======= Property Search Section ======= -->
   <div class="click-closed"></div>
-  <!--/ Form Search Star /-->
-  <!-- End Property Search Section -->>
 
   <!-- ======= Header/Navbar ======= -->
   <%- include('navbar.ejs') %>
@@ -66,7 +48,7 @@
                   <a href="index.html">Home</a>
                 </li>
                 <li class="breadcrumb-item">
-                  <a href="property-grid.html">Properties</a>
+                  <a href="property-grid.html">Propriet&agrave;</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                   <%= parsed_proprieta[0].via %>
@@ -169,6 +151,7 @@
                 </div>
                 <div class="property-description">
                   <p class="description color-text-a">
+                    <!-- DESCRIZIONE -->
                     Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit
                     neque, auctor sit amet
                     aliquam vel, ullamcorper sit amet ligula. Cras ultricies ligula sed magna dictum porta.
@@ -190,6 +173,7 @@
                 </div>
                 <div class="amenities-list color-text-a">
                   <ul class="list-a no-margin">
+                    <!-- SERVIZI -->
                     <li>Balcony</li>
                     <li>Outdoor Kitchen</li>
                     <li>Cable Tv</li>
@@ -232,7 +216,7 @@
             <div class="row section-t3">
               <div class="col-sm-12">
                 <div class="title-box-d">
-                  <h3 class="title-d">Contact Agent</h3>
+                  <h3 class="title-d">Contatta il proprietario dell'immobile</h3>
                 </div>
               </div>
             </div>
@@ -242,27 +226,18 @@
               </div>
               <div class="col-md-6 col-lg-4">
                 <div class="property-agent">
-                  <h4 class="title-agent">Anabella Geller</h4>
-                  <p class="color-text-a">
-                    Nulla porttitor accumsan tincidunt. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet
-                    dui. Quisque velit nisi,
-                    pretium ut lacinia in, elementum id enim.
-                  </p>
+                  <h4 class="title-agent"> query nome proprietario</h4>
                   <ul class="list-unstyled">
                     <li class="d-flex justify-content-between">
-                      <strong>Phone:</strong>
+                      <strong>Telefono:</strong>
                       <span class="color-text-a">(222) 4568932</span>
-                    </li>
-                    <li class="d-flex justify-content-between">
-                      <strong>Mobile:</strong>
-                      <span class="color-text-a">777 287 378 737</span>
                     </li>
                     <li class="d-flex justify-content-between">
                       <strong>Email:</strong>
                       <span class="color-text-a">annabella@example.com</span>
                     </li>
                     <li class="d-flex justify-content-between">
-                      <strong>Skype:</strong>
+                      <strong>Via:</strong>
                       <span class="color-text-a">Annabela.ge</span>
                     </li>
                   </ul>
@@ -317,7 +292,7 @@
                         </div>
                       </div>
                       <div class="col-md-12">
-                        <button type="submit" class="btn btn-a">Send Message</button>
+                        <button type="submit" class="btn btn-a">manda un messaggio</button>
                       </div>
                     </div>
                   </form>
