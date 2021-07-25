@@ -79,8 +79,9 @@ server.get('/home', function(request, response) {
 });
 
 server.get('/appuntamenti', function(request, response) {
+	var id_agente = request.session.username;
 	if (request.session.loggedin) {
-		dbconnection.query('SELECT * FROM appuntamento', function(error, results, fields) {
+		dbconnection.query('SELECT * FROM appuntamento WHERE id_agente = ?', [id_agente], function(error, results, fields) {
 			if (error) throw error;
 			if (results) {
 				var eventi = JSON.stringify(results);
@@ -266,8 +267,18 @@ server.post('/ricercaproprieta', function(request, response) {
 });	
 
 server.get('/popupcalendario/:data', function(request, response) {
+	var id_agente = request.session.username;
 	if (request.session.loggedin) {
-		response.render('calendar-popup', {data:request.params.data});
+		dbconnection.query('SELECT * FROM appuntamento WHERE giorno = ? AND id_agente = ?', [request.params.data, id_agente], function(error, results, fields) {
+		if (error) throw error;
+		if (results) {
+			var eventi = JSON.stringify(results);
+			response.render('calendar-popup', {data:request.params.data, eventi:eventi});
+		}
+		else{
+			response.render('calendar-popup', {data:request.params.data});
+		}
+	});
 	} else {
 		response.redirect('/');
 	}
@@ -285,7 +296,65 @@ server.post('/nuovoevento', function(request, response) {
 		dbconnection.query("INSERT INTO appuntamento (id_agente, giorno, luogo, scopo, orarioinizio, orariofine) VALUES (?, ?, ?, ?, ?, ?)", [id_agente, giorno, luogo, scopo, orarioinizio, orariofine], function(error, results, fields) {
 			if (error) throw error;
 			if (results) {
-				response.redirect('/appuntamenti');
+				response.redirect('/popupcalendario/' + giorno);
+			}
+		});	
+
+	} else {
+		response.redirect('/');
+	}
+});
+
+server.get('/inseriscicliente', function(request, response) {
+	if (request.session.loggedin) {
+			response.render('client-add');
+	} else {
+		response.redirect('/');
+	}
+});
+
+server.post('/nuovocliente', function(request, response) {
+	var nome = request.body.name;
+	var cognome = request.body.surname;
+	var email = request.body.email;
+	var telefono = request.body.phone;
+	
+	if (request.session.loggedin) {
+		dbconnection.query("INSERT INTO cliente (nome, cognome, email, telefono) VALUES (?, ?, ?, ?)", [nome, cognome, email, telefono], function(error, results, fields) {
+			if (error) throw error;
+			if (results) {
+				response.redirect('/clienti');
+			}
+		});	
+
+	} else {
+		response.redirect('/');
+	}
+});
+
+server.get('/inserisciproprieta', function(request, response) {
+	if (request.session.loggedin) {
+			response.render('property-add');
+	} else {
+		response.redirect('/');
+	}
+});
+
+server.post('/nuovaproprieta', function(request, response) {
+	var indirizzo = request.body.ind;
+	var citta = request.body.citta;
+	var prezzo = request.body.prezzo;
+	var categoria = request.body.categoria;
+	var tipo = request.body.tipo;
+	var vendita = request.body.contrattoVendita;
+	var affitto = request.body.contrattoAffitto;
+	var immagini = request.body.immagini;
+	
+	if (request.session.loggedin) {
+		dbconnection.query("INSERT INTO cliente (nome, cognome, email, telefono) VALUES (?, ?, ?, ?)", [nome, cognome, email, telefono], function(error, results, fields) {
+			if (error) throw error;
+			if (results) {
+				response.redirect('/clienti');
 			}
 		});	
 

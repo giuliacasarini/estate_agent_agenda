@@ -22,21 +22,52 @@
 
 <body>
   <main id="main">
-    <section>
+  <section class="agents-grid grid">
       <div class="container">
         <div class="row">
-          <div class="col-md-12 col-lg-8">
-            <div class="title-single-box">
-              <h1 class="title-single">Inserisci un nuovo evento per il <%= data %></h1>
-               </div>
-          </div>
-          
+		<%  var parsed_eventi = JSON.parse(eventi) %>
+		  <% for(var i=0; i <  parsed_eventi.length; i++) { %>
+          <div class="col-md-4">
+		  <div class="card-margin">
+              <div class="card-overlay card-overlay-hover">
+                <div class="card-header-d">
+                  <div class="card-title-d align-self-center">
+                    <h3 class="title-d">
+                        <br> <%= parsed_eventi[i].scopo %></a>
+                    </h3>
+                  </div>
+                </div>
+                <div class="card-body-d">
+                 
+                  <div class="info-agents color-a">
+					<p>
+                      <strong>Luogo: </strong> <%= parsed_eventi[i].luogo %>
+                    </p>
+                    <p>
+                      <strong>Orario inizio: </strong> <%= parsed_eventi[i].orarioinizio %>
+                    </p>
+                    <p>
+                      <strong>Orario fine: </strong> <%= parsed_eventi[i].orariofine %>
+                    </p>
+                  </div>
+                </div>
+              </div>
+          </div>         
         </div>
-      </div>
-    </section>
+		<% } %>
+		</div>
+	</div>
+
+	</section>
     <section class="contact">
       <div class="container">
         <div class="row">
+		<div class="col-md-12 col-lg-8">
+            <div class="title-single-box">
+			<br/> <br/>
+              <h1 class="title-single">Inserisci un nuovo evento per il <%= data %></h1>
+            </div>
+          </div>
           <div class="col-sm-12 section-t8">
             <div class="row">
               <div class="col-md-7">

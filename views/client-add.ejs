@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Inserisci un nuovo cliente</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <link href="/public/assets/img/favicon.png" rel="icon">
+  <link href="/public/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+  <link href="/public/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/public/assets/vendor/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="/public/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="/public/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/public/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="/public/assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- ======= Header/Navbar ======= -->
+  <%- include('navbar.ejs') %>
+  <!-- End Header/Navbar -->
+
+  <main id="main">
+  <section class="intro-single">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 col-lg-8">
+            <div class="title-single-box">
+              <h1 class="title-single">Inserisci un nuovo cliente</h1>
+               </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+    <section class="contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 section-t8">
+            <div class="row">
+              <div class="col-md-7">
+                <form action="/nuovocliente" method="post" role="form" class="php-email-form">
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <div class="form-group">
+					   <label for="name">Nome</label>
+					   <input type="text" id="name" name="name" class="form-control form-control-lg form-control-a" placeholder="Nome">
+                        <div class="validate"></div>
+                      </div>
+                    </div>
+					<div class="col-md-6 mb-3">
+                      <div class="form-group">
+					   <label for="surname">Cognome</label>
+					   <input type="text" id="surname" name="surname" class="form-control form-control-lg form-control-a" placeholder="Cognome">
+                        <div class="validate"></div>
+                      </div>
+                    </div>
+					
+					<div class="col-md-6 mb-3">
+                      <div class="form-group">
+					    <label for="email">Email</label>
+						<input type="text" id="email" name="email" class="form-control form-control-lg form-control-a" placeholder="Indirizzo di posta elettronica">
+                        <div class="validate"></div>
+                      </div>
+                    </div>
+					<div class="col-md-6 mb-3">
+                      <div class="form-group">
+                        <label for="phone">Telefono</label>
+						<input type="text" id="phone" name="phone" class="form-control form-control-lg form-control-a" placeholder="Numero di telefono">
+                        <div class="validate"></div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 text-center">
+                      <input type="submit" value="Inserisci" id="tastoInserisciCliente" class="btn btn-a">
+                      <br><br>
+                    </div>
+                  </div>
+                </form>
+
+
+
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  
+  <!-- ======= Footer ======= -->
+  <%- include('footer.ejs') %>
+  <!-- End  Footer -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="/public/assets/vendor/jquery/jquery.min.js"></script>
+  <script src="/public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/public/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <!-- <script src="/public/assets/vendor/php-email-form/validate.js"></script> not working for now--> 
+  <script src="/public/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="/public/assets/vendor/scrollreveal/scrollreveal.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/public/assets/js/main.js"></script>
+
+</body>
+
+</html>

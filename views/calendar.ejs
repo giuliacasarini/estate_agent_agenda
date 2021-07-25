@@ -71,9 +71,8 @@
   <script src="/public/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
   <script src="/public/assets/vendor/scrollreveal/scrollreveal.min.js"></script>
 <script>
-var events = <%= eventi %>;
-console.log(events);
-var month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+var events = <%- eventi %>;
+var month = ["Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"];
 var today = new Date();
 var label = month[today.getMonth()];
 var mm = today.getMonth(); // keep track of the month
@@ -88,7 +87,22 @@ function loadDays() {
 	var daysInMonths = [31, (((year%4==0)&&(year%100!=0))||(year%400==0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 	count = 0;
 	for (i = 1, len = daysInMonths[mm], text = ""; i < len + 1; i++) {    
-		text += "<div class='day col-sm p-2 border border-left-0 border-top-0 text-muted'> <h5 class='row align-items-center'><span class='date col-1'><button onclick='popup(this)'>" + i + "</button></span></h5></div>";
+		text += "<div class='day col-sm p-2 border border-left-0 border-top-0 text-muted'> <h5 class='row align-items-center'><span class='date col-1'><button onclick='popup(this)'>" + i + "</button></span></h5>";
+		for (j = 0, compare_date = new Date(year, mm, i), events_check = 0; j < Object.keys(events).length; j++) {
+			event_date = new Date(events[j].giorno)
+			if (compare_date.getTime() == event_date.getTime()){
+			  events_check++;
+			}
+		}
+		if (events_check == 0){
+			text += "</div>";
+		}
+		else if (events_check == 1){
+			text += "E' presente " + events_check + " evento per oggi.</div>";
+		}
+		else {
+			text += "Sono presenti " + events_check + " eventi per oggi.</div>";
+		}
 		count++;
 		if (count == 7){
 		 text += "<div class='w-100'></div>"
@@ -125,8 +139,8 @@ function nextMonth(){
 
 
 function popup(el){
-	var w = 500;
-	var h = 400;
+	var w = 800;
+	var h = 600;
 	var l = Math.floor((screen.width-w)/2);
 	var t = Math.floor((screen.height-h)/2);
 	var mmm = mm + 1;
