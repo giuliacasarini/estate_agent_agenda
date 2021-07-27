@@ -67,15 +67,11 @@
 
           <div class="col-sm-12">
             <div id="property-single-carousel" class="owl-carousel owl-arrow gallery-property">
+			<% for(var i=0; i <  parsed_proprieta.length; i++) { %>
               <div class="carousel-item-b">
-                <img src="/public/assets/img/slide-2.jpg" alt="">
+                <img src="/public/assets/img/<%= parsed_proprieta[i].percorso %>" alt="">
               </div>
-              <div class="carousel-item-b">
-                <img src="/public/assets/img/slide-3.jpg" alt="">
-              </div>
-              <div class="carousel-item-b">
-                <img src="/public/assets/img/slide-1.jpg" alt="">
-              </div>
+			<% } %>
             </div>
             <div class="row justify-content-between">
               <div class="col-md-5 col-lg-4">

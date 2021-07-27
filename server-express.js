@@ -170,7 +170,7 @@ server.get('/agenti/:id', function(request, response) {
 
 server.get('/proprieta', function(request, response) {
 	if (request.session.loggedin) {
-		dbconnection.query('SELECT * FROM proprieta', function(error, results, fields) {
+		dbconnection.query('SELECT * FROM proprieta, immagine WHERE id = id_proprieta GROUP BY id', function(error, results, fields) {
 			if (error) throw error;
 			if (results) {
 				var proprieta = JSON.stringify(results);
@@ -188,9 +188,10 @@ server.get('/proprieta', function(request, response) {
 
 server.get('/proprieta/:id', function(request, response) {
 	if (request.session.loggedin) {
-		dbconnection.query('SELECT * FROM proprieta WHERE id = ?', [request.params.id], function(error, results, fields) {
+		dbconnection.query('SELECT * FROM proprieta, immagine WHERE id = ? AND id = id_proprieta', [request.params.id], function(error, results, fields) {
 			if (results) {
 				var proprieta = JSON.stringify(results);
+				console.log(proprieta);
 				response.render('property-single', {proprieta:proprieta});
 			}
 		});	
@@ -203,7 +204,7 @@ server.get('/proprieta/:id', function(request, response) {
 server.get('/proprieta/:categoria/:contratto', function(request, response) {
 	if (request.session.loggedin) {
 		if(request.params.contratto == 'affitto'){
-			dbconnection.query('SELECT * FROM proprieta WHERE categoria = ?  AND affitto = 1', [request.params.categoria], function(error, results, fields) {
+			dbconnection.query('SELECT  * FROM proprieta, immagine WHERE categoria = ?  AND affitto = 1 and id = id_proprieta GROUP BY id', [request.params.categoria], function(error, results, fields) {
 				if (error) throw error;
 				if (results) {
 					var proprieta = JSON.stringify(results);
@@ -214,7 +215,7 @@ server.get('/proprieta/:categoria/:contratto', function(request, response) {
 				}
 			});
 		} else if (request.params.contratto == 'vendita'){
-			dbconnection.query('SELECT * FROM proprieta WHERE categoria = ? AND vendita = 1', [request.params.categoria], function(error, results, fields) {
+			dbconnection.query('SELECT * FROM proprieta, immagine WHERE categoria = ? AND vendita = 1 AND id = id_proprieta GROUP BY id', [request.params.categoria], function(error, results, fields) {
 				if (error) throw error;
 				if (results) {
 					var proprieta = JSON.stringify(results);
@@ -225,17 +226,10 @@ server.get('/proprieta/:categoria/:contratto', function(request, response) {
 				}
 			});
 		} else {
-			dbconnection.query('SELECT * FROM proprieta WHERE categoria = ?; SELECT * FROM proprieta WHERE categoria = ?  AND affitto = 1', [request.params.categoria, request.params.categoria], function(error, results, fields) {
+			dbconnection.query('SELECT * FROM proprieta, immagine WHERE categoria = ? AND id = id_proprieta GROUP BY id', [request.params.categoria], function(error, results, fields) {
 				if (error) throw error;
 				if (results) {
-					var proprieta_array = [];
-					for (var i=0; i <  results[0].length; i++) {
-						proprieta_array.push(results[0][i]);
-					}
-					for (var i=0; i <  results[1].length; i++) {
-						proprieta_array.push(results[1][i]);
-					}
-					var proprieta = JSON.stringify(proprieta_array);
+					var proprieta = JSON.stringify(results);
 					response.render('property-grid', {proprieta:proprieta});
 				}
 				else{
@@ -251,7 +245,7 @@ server.get('/proprieta/:categoria/:contratto', function(request, response) {
 
 server.post('/ricercaproprieta', function(request, response) {
 	 if (request.session.loggedin) {
-		 query = "SELECT * FROM proprieta WHERE prezzo >= " + request.body.pricemin + " AND prezzo <= " + request.body.pricemax + " ";
+		 query = "SELECT * FROM proprieta, immagine WHERE prezzo >= " + request.body.pricemin + " AND prezzo <= " + request.body.pricemax + " AND id = id_proprieta ";
 		 if (request.body.category != null){
 			 query += "AND categoria = '" + request.body.category + "' ";
 		 }
@@ -261,6 +255,7 @@ server.post('/ricercaproprieta', function(request, response) {
 		 if (request.body.city != null){
 			 query += "AND citta = '" + request.body.city + "' ";
 		 }
+		 query += "GROUP BY id";
 		dbconnection.query(query, function(error, results, fields) {
 			if (error) throw error;
 			if (results) {
