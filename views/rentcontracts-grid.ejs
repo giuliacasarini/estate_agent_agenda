@@ -8,8 +8,6 @@
   <title>Agenzia Immobiliare</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-  <link href="/public/assets/img/favicon.png" rel="icon">
-  <link href="/public/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
   <link href="/public/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="/public/assets/vendor/ionicons/css/ionicons.min.css" rel="stylesheet">
@@ -33,7 +31,7 @@
         <div class="row">
           <div class="col-md-12 col-lg-8">
             <div class="title-single-box">
-              <h1 class="title-single">I Clienti</h1>
+              <h1 class="title-single">Contratti Affitto</h1>
               <!--<span class="color-text-a">Grid Properties</span>-->
             </div>
           </div>
@@ -41,11 +39,11 @@
             <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                  <a href="#">Home</a>
+                  <a href="/home">Home</a>
                 </li>
-                <!--<li class="breadcrumb-item active" aria-current="page">
-                  Agents Grid
-                </li>-->
+                <li class="breadcrumb-item active" aria-current="page">
+                  Contratti Affitto
+                </li>
               </ol>
             </nav>
           </div>
@@ -62,36 +60,40 @@
               <div class="card-overlay card-overlay-hover">
                 <div class="card-header-d">
                   <div class="card-title-d align-self-center">
-                    <h3 class="title-d">Inserisci nuovo cliente</h3>
+                    <h3 class="title-d">Inserisci un nuovo contratto</h3>
 				</div>
                 </div>
 				<div class="card-body-d">
-				<a href="/inseriscicliente"><button>+</button></a>
+				<a href="/inseriscicontratto"><button>+</button></a>
 				</div>
 			</div>
 		</div>
 		</div>
-		<%  var parsed_cliente = JSON.parse(cliente) %>
-		  <% for(var i=0; i <  parsed_cliente.length; i++) { %>
+		<%  var parsed_contratto = JSON.parse(contratto) %>
+		  <% for(var i=0; i <  parsed_contratto.length; i++) { %>
           <div class="col-md-4">
 		  <div class="card-margin">
               <div class="card-overlay card-overlay-hover">
                 <div class="card-header-d">
                   <div class="card-title-d align-self-center">
                     <h3 class="title-d">
-                      <a href="/clienti/<%= parsed_cliente[i].id %>" class="link-two"><%= parsed_cliente[i].nome %>
-                        <br> <%= parsed_cliente[i].cognome %></a>
+                      <a href="/proprieta/<%= parsed_contratto[i].id_proprieta %>" class="link-two"><%= parsed_contratto[i].via %></a>
                     </h3>
                   </div>
                 </div>
                 <div class="card-body-d">
                  
                   <div class="info-agents color-a">
-                    <p>Telefono: </strong> <%= parsed_cliente[i].telefono %>
-                    </p>
                     <p>
-                      <strong>Email: </strong> <%= parsed_cliente[i].email %>
+						Data Inizio: <%= parsed_contratto[i].inizio %></strong> 
                     </p>
+					<p>
+						Data Fine: <%= parsed_contratto[i].fine %></strong> 
+                    </p>
+					<p>
+						Cliente: <%= parsed_contratto[i].nome %> <%= parsed_contratto[i].cognome %></strong> 
+                    </p>
+
                   </div>
                 </div>
                 
@@ -100,34 +102,12 @@
         </div>
 		<% } %>
 		</div>
+	</div>
 
-        <div class="row">
-          <div class="col-sm-12">
-            <nav class="pagination-a">
-              <ul class="pagination justify-content-end">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" tabindex="-1">
-                    <span class="ion-ios-arrow-back"></span>
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item active">
-                  <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item next">
-                  <a class="page-link" href="#">
-                    <span class="ion-ios-arrow-forward"></span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
+	</section>
+
+
+       
       </div>
     </section><!-- End Agents Grid-->
 

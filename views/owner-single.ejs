@@ -8,8 +8,6 @@
   <title>Agenzia Immobiliare</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-  <link href="/public/assets/img/favicon.png" rel="icon">
-  <link href="/public/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
   <link href="/public/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="/public/assets/vendor/ionicons/css/ionicons.min.css" rel="stylesheet">
@@ -22,6 +20,8 @@
 </head>
 
 <body>
+
+  <!-- ======= Property Search Section ======= -->
   <div class="click-closed"></div>
   <!-- ======= Header/Navbar ======= -->
   <%- include('navbar.ejs') %>
@@ -33,25 +33,26 @@
     <section class="intro-single">
       <div class="container">
         <div class="row">
-		<%  var parsed_agente = JSON.parse(agente) %>
+		<%  var parsed_proprietario = JSON.parse(proprietario) %>
           <div class="col-md-12 col-lg-8">
             <div class="title-single-box">
-              <h1 class="title-single"> <%= parsed_agente[0].id %> %></h1>
-              <span class="color-text-a">Agenti Immobiliari</span>
+              <h1 class="title-single"> <%= parsed_proprietario[0].id %> %></h1>
+              <span class="color-text-a">Clienti agenzia</span>
             </div>
           </div>
+		  
           <div class="col-md-12 col-lg-4">
             <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                  <a href="#">Home</a>
+                  <a href="/home">Home</a>
                 </li>
                 <li class="breadcrumb-item">
-                  <a href="#">Agenti</a>
+                  Proprietari
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                  <%= parsed_agente[0].nome %>
-                </li>
+                <!--<li class="breadcrumb-item active" aria-current="page">
+                  Margaret Stone
+                </li>-->
               </ol>
             </nav>
           </div>
@@ -65,45 +66,36 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="row">
-              <div class="col-md-6">
-                <div class="agent-avatar-box">
-                  <img src="/public/assets/img/agent-7.jpg" alt="" class="agent-avatar img-fluid">
-                </div>
-              </div>
               <div class="col-md-5 section-md-t3">
                 <div class="agent-info-box">
                   <div class="agent-title">
                     <div class="title-box-d">
-                      <h3 class="title-d"><%= parsed_agente[0].nome %>
-                        <br> <%= parsed_agente[0].cognome %>
+                      <h3 class="title-d"><%= parsed_proprietario[0].nome %>
+                        <br> <%= parsed_proprietario[0].cognome %>
                       </h3>
                     </div>
                   </div>
                   <div class="agent-content mb-3">
-                    <p class="content-d color-text-a">
-                      Sed porttitor lectus nibh. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
-                      Vivamus suscipit tortor
-                      eget felis porttitor volutpat. Vivamus suscipit tortor eget felis porttitor volutpat.
-                    </p>
                     <div class="info-agents color-a">
                       <p>
                         <strong>Telefono: </strong>
-                        <span class="color-text-a"> <%= parsed_agente[0].telfono %> </span>
+                        <span class="color-text-a">  <%= parsed_proprietario[0].telefono %> </span>
                       </p>
+					
                       <p>
                         <strong>Email: </strong>
-                        <span class="color-text-a"> <%= parsed_agente[0].email %></span>
+                        <span class="color-text-a"> <%= parsed_proprietario[0].email %> </span>
                       </p>
+                     
                     </div>
                   </div>
-                  
-                </div>
+                 </div>
               </div>
             </div>
           </div>
-          <div class="col-md-12 section-t8">
+          <div class="col-md-12 section-tproprietario">
             <div class="title-box-d">
-              <h3 class="title-d">Le mie propert&agrave;</h3>
+              <h3 class="title-d">Proprietà del proprietario</h3>
             </div>
           </div>
           <div class="row property-grid grid">
@@ -117,26 +109,29 @@
                     <option value="3">For Sale</option>
                   </select>
                 </form>
-              </div>-->
-            </div>
+              </div>
+            </div>-->
             <div class="col-md-4">
               <div class="card-box-a card-shadow">
                 <div class="img-box-a">
-                  <img src="/public/assets/img/property-1.jpg" alt="" class="img-a img-fluid">
+                  <img src="/public/assets/img/<%= parsed_proprietario[0].percorso %>" alt="" class="img-a img-fluid">
                 </div>
+				  <%  var parsed_proprietario = JSON.parse(proprietario) %>
+				  <% for(var i=0; i <  parsed_proprietario.length; i++) { %>
                 <div class="card-overlay">
                   <div class="card-overlay-a-content">
                     <div class="card-header-a">
                       <h2 class="card-title-a">
-                        <a href="#">204 Mount
-                          <br /> Olive Road Two</a>
+                          <br /><%= parsed_proprietario[i].via %></a>
                       </h2>
                     </div>
+					
+
                     <div class="card-body-a">
                       <div class="price-box d-flex">
-                        <span class="price-a">rent | $ 12.000</span>
+                        <span class="price-a"><%= parsed_proprietario[0].prezzo %></span>
                       </div>
-                      <a href="#" class="link-a">Click here to view
+                      <a a href="/proprieta/<%= parsed_proprietario[i].id_proprieta %>" class="link-a">Clicca qua per vedere
                         <span class="ion-ios-arrow-forward"></span>
                       </a>
                     </div>
@@ -162,6 +157,7 @@
                         </li>
                       </ul>
                     </div>
+					<% } %>
                   </div>
                 </div>
               </div>
@@ -260,6 +256,7 @@
                 </div>
               </div>
             </div>
+          
             <div class="col-md-4">
               <div class="card-box-a card-shadow">
                 <div class="img-box-a">
@@ -402,11 +399,12 @@
               </div>
             </div>-->
           </div>
+          
         </div>
       </div>
-    </section>
+    </section><!-- End Agent Single -->
 
-  </main>
+  </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <%- include('footer.ejs') %>

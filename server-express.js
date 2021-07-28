@@ -72,7 +72,7 @@ server.post('/login', function(request, response) {
 });
 
 function searchParams() {
-	dbconnection.query('SELECT DISTINCT categoria FROM proprieta; SELECT DISTINCT tipo FROM proprieta; SELECT DISTINCT citta FROM proprieta', function(error, results) { 		
+	dbconnection.query('SELECT DISTINCT categoria FROM proprieta; SELECT DISTINCT tipo FROM proprieta; SELECT DISTINCT citta FROM proprieta; SELECT DISTINCT nomeServizio FROM servizio;', function(error, results) { 		
 		if (error) throw error;
 		if (results){
 			var params = JSON.stringify(results)
@@ -82,8 +82,21 @@ function searchParams() {
 }
 
 server.get('/home', function(request, response) {
+	var id_agente = request.session.username;
 	if (request.session.loggedin) {
-		response.render('index');
+		dbconnection.query('SELECT * FROM agente', function(error, results, fields) {
+		if (error) throw error;
+			if (results) {
+			var agente = JSON.stringify(results);
+			dbconnection.query('SELECT * FROM appuntamento WHERE id_agente = ?', [id_agente], function(error, results, fields) {
+				if (error) throw error;
+				if (results) {
+					var eventi = JSON.stringify(results);
+					response.render('index', {agente:agente, eventi:eventi});
+				}
+			});	
+			}
+		});
 	} else {
 		response.redirect('/');
 	}
@@ -108,16 +121,16 @@ server.get('/appuntamenti', function(request, response) {
 	}
 });
 
-server.get('/clienti', function(request, response) {
+server.get('/acquirenti', function(request, response) {
 	if (request.session.loggedin) {
-		dbconnection.query('SELECT * FROM cliente', function(error, results, fields) {
+		dbconnection.query('SELECT * FROM acquirente', function(error, results, fields) {
 			if (error) throw error;
 			if (results) {
-				var cliente = JSON.stringify(results);
-				response.render('clients-grid', {cliente:cliente});
+				var acquirente = JSON.stringify(results);
+				response.render('buyers-grid', {acquirente:acquirente});
 			}
 			else{
-				response.render('clients-grid');
+				response.render('buyers-grid');
 			}
 		});	
 	} else {
@@ -125,18 +138,54 @@ server.get('/clienti', function(request, response) {
 	}
 });
 
-server.get('/clienti/:id', function(request, response) {
+server.get('/acquirenti/:id', function(request, response) {
 	if (request.session.loggedin) {
-		dbconnection.query('SELECT * FROM cliente WHERE id = ?', [request.params.id], function(error, results, fields) {
+		dbconnection.query('SELECT * FROM acquirente, proprieta, contratto_affitto, contratto_vendita, immagine WHERE (acquirente.id = ? and acquirente.id = contratto_vendita.id_cliente and contratto_vendita.id_proprieta = proprieta.id  and immagine.id_proprieta = proprieta.id) or (acquirente.id = ? and acquirente.id = contratto_affitto.id_cliente and contratto_affitto.id_proprieta = proprieta.id and immagine.id_proprieta = proprieta.id)GROUP BY proprieta.id', [request.params.id, request.params.id], function(error, results, fields) {
+			if (error) throw error;
 			if (results) {
-				var cliente = JSON.stringify(results);
-				response.render('client-single', {cliente:cliente});
+				var acquirente = JSON.stringify(results);
+				console.log(acquirente);
+				response.render('buyer-single', {acquirente:acquirente});
 			}
 		});	
 	} else {
 		response.redirect('/');
 	}
 });
+
+server.get('/proprietari', function(request, response) {
+	if (request.session.loggedin) {
+		dbconnection.query('SELECT * FROM proprietario', function(error, results, fields) {
+			if (error) throw error;
+			if (results) {
+				var proprietario = JSON.stringify(results);
+				response.render('owners-grid', {proprietario:proprietario});
+			}
+			else{
+				response.render('owners-grid');
+			}
+		});	
+	} else {
+		response.redirect('/');
+	}
+});
+
+server.get('/proprietari/:id', function(request, response) {
+	if (request.session.loggedin) {
+		dbconnection.query('SELECT * FROM proprietario, proprieta, immagine WHERE proprietario.id = ? and proprietario.id = proprieta.id_proprietario and immagine.id_proprieta = proprieta.id GROUP BY proprieta.id', [request.params.id], function(error, results, fields) {
+			if (error) throw error;
+			if (results) {
+				var proprietario = JSON.stringify(results);
+				console.log(proprietario);
+				response.render('owner-single', {proprietario:proprietario});
+			}
+		});	
+	} else {
+		response.redirect('/');
+	}
+});
+
+
 
 server.get('/agenti', function(request, response) {
 	if (request.session.loggedin) {
@@ -155,14 +204,34 @@ server.get('/agenti', function(request, response) {
 	}
 });
 
-server.get('/agenti/:id', function(request, response) {
+server.get('/contrattiAffitto', function(request, response) {
 	if (request.session.loggedin) {
-		dbconnection.query('SELECT * FROM agente WHERE id = ?', [request.params.id], function(error, results, fields) {
+		dbconnection.query('SELECT * FROM contratto_affitto, proprieta, acquirente where acquirente.id = contratto_affitto.id_cliente and proprieta.id = contratto_affitto.id_proprieta', function(error, results, fields) {
+			if (error) throw error;
 			if (results) {
-				var agente = JSON.stringify(results);
-				response.render('agent-single', {agente:agente});
+				var contratto = JSON.stringify(results);
+				response.render('rentcontracts-grid', {contratto:contratto});
 			}
-		});
+			else{
+				response.render('rentcontracts-grid');
+			}
+		});	
+	} else {
+		response.redirect('/');
+	}
+});
+server.get('/contrattiVendita', function(request, response) {
+	if (request.session.loggedin) {
+		dbconnection.query('SELECT * FROM contratto_vendita, proprieta, acquirente where acquirente.id = contratto_vendita.id_cliente and proprieta.id = contratto_vendita.id_proprieta', function(error, results, fields) {
+			if (error) throw error;
+			if (results) {
+				var contratto = JSON.stringify(results);
+				response.render('salecontracts-grid', {contratto:contratto});
+			}
+			else{
+				response.render('salecontracts-grid');
+			}
+		});	
 	} else {
 		response.redirect('/');
 	}
@@ -188,8 +257,8 @@ server.get('/proprieta', function(request, response) {
 
 server.get('/proprieta/:id', function(request, response) {
 	if (request.session.loggedin) {
-		dbconnection.query('SELECT * FROM proprieta, immagine WHERE id = ? AND id = id_proprieta', [request.params.id], function(error, results, fields) {
-			if (results) {
+		dbconnection.query('SELECT * FROM proprieta, immagine, proprietario, servizio, servizio_disponibile WHERE proprieta.id = ? AND proprieta.id = immagine.id_proprieta and proprietario.id = proprieta.id_proprietario and servizio_disponibile.id_proprieta = proprieta.id and servizio_disponibile.id_servizio = servizio.id', [request.params.id], function(error, results, fields) {		
+		if (results) {
 				var proprieta = JSON.stringify(results);
 				console.log(proprieta);
 				response.render('property-single', {proprieta:proprieta});
@@ -319,32 +388,94 @@ server.get('/inseriscicliente', function(request, response) {
 	}
 });
 
+
 server.post('/nuovocliente', function(request, response) {
+	var categoria = request.body.categoria;
 	var nome = request.body.name;
 	var cognome = request.body.surname;
 	var email = request.body.email;
 	var telefono = request.body.phone;
 	
 	if (request.session.loggedin) {
-		dbconnection.query("INSERT INTO cliente (nome, cognome, email, telefono) VALUES (?, ?, ?, ?)", [nome, cognome, email, telefono], function(error, results, fields) {
+		if (categoria == 'acquirente'){
+		dbconnection.query("INSERT INTO acquirente (nome, cognome, email, telefono) VALUES (?, ?, ?, ?)", [nome, cognome, email, telefono], function(error, results, fields) {
 			if (error) throw error;
 			if (results) {
-				response.redirect('/clienti');
+				response.redirect('/acquirenti');
 			}
-		});	
+		});
+		}
+		else{
+			dbconnection.query("INSERT INTO proprietario (telefono,email, nome, cognome) VALUES (?, ?, ?, ?)", [telefono, email, nome, cognome], function(error, results, fields) {
+		
+			if (error) throw error;
+			if (results) {
+				response.redirect('/proprietari');
+			}
+			});	
+		}
 
 	} else {
 		response.redirect('/');
 	}
 });
 
-server.get('/inserisciproprieta', function(request, response) {
+server.post('/nuovocontrattoA', function(request, response) {
+	var categoria = request.body.categoria;
+	var nome = request.body.name;
+	var cognome = request.body.surname;
+	var email = request.body.email;
+	var telefono = request.body.phone;
+	
 	if (request.session.loggedin) {
-			response.render('property-add');
+		if (categoria == 'affitto'){
+		dbconnection.query("INSERT INTO contratto_affitto (nome, cognome, email, telefono) VALUES (?, ?, ?, ?)", [nome, cognome, email, telefono], function(error, results, fields) {
+			if (error) throw error;
+			if (results) {
+				response.redirect('/contrattiAffitto');
+			}
+		});
+		}
+		else{
+			dbconnection.query("INSERT INTO contratto_vendita (telefono,email, nome, cognome) VALUES (?, ?, ?, ?)", [telefono, email, nome, cognome], function(error, results, fields) {
+		
+			if (error) throw error;
+			if (results) {
+				response.redirect('/contrattiVendita');
+			}
+			});	
+		}
+
 	} else {
 		response.redirect('/');
 	}
 });
+
+server.get('/inseriscicontratto', function(request, response) {
+	if (request.session.loggedin) {
+			response.render('contract-add');
+	} else {
+		response.redirect('/');
+	}
+});
+server.get('/inserisciproprieta', function(request, response) {
+		
+	if (request.session.loggedin) {
+		dbconnection.query('SELECT nome, cognome FROM proprietario', function(error, results, fields) {
+				if (error) throw error;
+				if (results) {
+					var proprietari = JSON.stringify(results);
+					response.render('property-add', {proprietari:proprietari});
+				}
+				else{
+					response.render('property-add');
+				}
+			});
+	} else {
+		response.redirect('/');
+	}
+});
+
 
 server.post('/nuovaproprieta', upload.array('immagini'), function(request, response) {
 	var indirizzo = request.body.ind;

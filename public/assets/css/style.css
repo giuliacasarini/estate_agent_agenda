@@ -259,11 +259,22 @@ a:hover {
 .section-t8 {
   padding-top: 8rem;
 }
-
+.section-tcliente {
+  padding-top: 4rem;
+}
+.section-tpopup {
+  padding-top: 4rem;
+}
 @media (max-width: 767px) {
   .section-t8 {
     padding-top: 4rem;
   }
+  .section-tcliente {
+  padding-top: 2rem;
+}
+ .section-tpopup {
+  padding-top: 2rem;
+}
 }
 
 .section-t4 {
@@ -1649,6 +1660,9 @@ a:hover {
 
 .card-header-c {
   padding: 0 1rem 1rem 1rem;
+}
+.card-header-index {
+  padding: 0 1rem 1rem -1rem;
 }
 
 .card-body-c {
