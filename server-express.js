@@ -144,7 +144,6 @@ server.get('/acquirenti/:id', function(request, response) {
 			if (error) throw error;
 			if (results) {
 				var acquirente = JSON.stringify(results);
-				console.log(acquirente);
 				response.render('buyer-single', {acquirente:acquirente});
 			}
 		});	
@@ -176,7 +175,6 @@ server.get('/proprietari/:id', function(request, response) {
 			if (error) throw error;
 			if (results) {
 				var proprietario = JSON.stringify(results);
-				console.log(proprietario);
 				response.render('owner-single', {proprietario:proprietario});
 			}
 		});	
@@ -260,7 +258,6 @@ server.get('/proprieta/:id', function(request, response) {
 		dbconnection.query('SELECT * FROM proprieta, immagine, proprietario, servizio, servizio_disponibile WHERE proprieta.id = ? AND proprieta.id = immagine.id_proprieta and proprietario.id = proprieta.id_proprietario and servizio_disponibile.id_proprieta = proprieta.id and servizio_disponibile.id_servizio = servizio.id', [request.params.id], function(error, results, fields) {		
 		if (results) {
 				var proprieta = JSON.stringify(results);
-				console.log(proprieta);
 				response.render('property-single', {proprieta:proprieta});
 			}
 		});	
@@ -420,7 +417,7 @@ server.post('/nuovocliente', function(request, response) {
 	}
 });
 
-server.post('/nuovocontrattoA', function(request, response) {
+server.post('/nuovocontratto', function(request, response) {
 	var categoria = request.body.categoria;
 	var nome = request.body.name;
 	var cognome = request.body.surname;

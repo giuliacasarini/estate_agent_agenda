@@ -37,7 +37,6 @@
           <div class="col-md-12 col-lg-8">
             <div class="title-single-box">
               <h1 class="title-single"> <%= parsed_proprietario[0].id %> %></h1>
-              <span class="color-text-a">Clienti agenzia</span>
             </div>
           </div>
 		  
@@ -50,9 +49,9 @@
                 <li class="breadcrumb-item">
                   Proprietari
                 </li>
-                <!--<li class="breadcrumb-item active" aria-current="page">
-                  Margaret Stone
-                </li>-->
+                <li class="breadcrumb-item active" aria-current="page">
+                  <%= parsed_proprietario[0].nome %> <%= parsed_proprietario[0].cognome %>
+                </li>
               </ol>
             </nav>
           </div>
