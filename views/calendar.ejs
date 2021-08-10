@@ -4,7 +4,6 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
   <title>Agenzia Immobiliare</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
@@ -15,15 +14,13 @@
   <link href="/public/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="/public/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
   <link href="../../public/assets/css/style.css" rel="stylesheet">
-
 </head>
-
 <body>
   <div class="click-closed"></div>
   <!-- ======= Header/Navbar ======= -->
   <%- include('navbar.ejs') %>
   <!-- End Header/Navbar -->
-  <!-- ======= Intro Single ======= -->
+  <!-- ======= Intro Section ======= -->
     <section class="intro-single">
       <div class="container">
         <div class="row">
@@ -48,11 +45,12 @@
         </div>
       </div>
     </section>
-  <!-- End Intro Single -->
+  <!-- End Intro Section -->
+   <!-- Calendar Section -->
   <div class="container-fluid">
     <h4 class="display-4 mb-4 text-center" style="margin-top: 30px;" id="mon"></h4>
 	
-    <div class="row d-none d-sm-flex p-1 bg-dark text-white">
+    <div class="row d-none d-sm-flex p-1 text-white" style="background-color:#26c2e9; color-text:white;">
 	  <button class="left button" id="prevBtn">&lang;</button>
       <h5 class="col-sm p-1 text-center">Luned&igrave;</h5>
       <h5 class="col-sm p-1 text-center">Marted&igrave;</h5>
@@ -63,16 +61,16 @@
       <h5 class="col-sm p-1 text-center">Domenica</h5>
 	  <button class="right button" id="nextBtn">&rang;</button>
     </div>
-  <div class="row border border-right-0 border-bottom-0" id="day-single">
-
+	<div class="row border border-right-0 border-bottom-0" id="day-single">
+	</div>
   </div>
-  </div>
+   <!-- End Calendar Section -->
   <!-- ======= Footer ======= -->
   <%- include('footer.ejs') %>
   <!-- End  Footer -->
-
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
   <div id="preloader"></div>
+   <!-- JS Files -->
   <script src="/public/assets/vendor/jquery/jquery.min.js"></script>
   <script src="/public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/public/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
@@ -91,7 +89,7 @@ document.getElementById("mon").innerHTML = label + " " + year;
 //document.getElementById("days").innerHTML = day;
 loadDays();
 
-//display days
+ <!-- ======= function to display the days ======= -->
 function loadDays() {
 	var daysInMonths = [31, (((year%4==0)&&(year%100!=0))||(year%400==0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 	count = 0;

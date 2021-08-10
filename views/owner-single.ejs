@@ -4,7 +4,6 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
   <title>Agenzia Immobiliare</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
@@ -14,32 +13,26 @@
   <link href="/public/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
   <link href="/public/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="/public/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="/public/assets/css/style.css" rel="stylesheet">
-
-  
+  <link href="/public/assets/css/style.css" rel="stylesheet"> 
 </head>
 
 <body>
-
   <!-- ======= Property Search Section ======= -->
   <div class="click-closed"></div>
-  <!-- ======= Header/Navbar ======= -->
+  <!-- ======= Navbar ======= -->
   <%- include('navbar.ejs') %>
-  <!-- End Header/Navbar -->
-
+  <!-- End Navbar -->
   <main id="main">
-
-    <!-- ======= Intro Single ======= -->
+    <!-- ======= Intro Section ======= -->
     <section class="intro-single">
       <div class="container">
         <div class="row">
 		<%  var parsed_proprietario = JSON.parse(proprietario) %>
           <div class="col-md-12 col-lg-8">
             <div class="title-single-box">
-              <h1 class="title-single"> <%= parsed_proprietario[0].id %> %></h1>
+              <h1 class="title-single"> <%= parsed_proprietario[0][0].nome %> <%= parsed_proprietario[0][0].cognome %> </h1>
             </div>
           </div>
-		  
           <div class="col-md-12 col-lg-4">
             <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
               <ol class="breadcrumb">
@@ -50,16 +43,15 @@
                   Proprietari
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                  <%= parsed_proprietario[0].nome %> <%= parsed_proprietario[0].cognome %>
+                  <%= parsed_proprietario[0][0].nome %> <%= parsed_proprietario[0][0].cognome %>
                 </li>
               </ol>
             </nav>
           </div>
         </div>
       </div>
-    </section><!-- End Intro Single -->
-
-    <!-- ======= Agent Single ======= -->
+    </section><!-- End Intro Section -->
+    <!-- ======= Owner Section ======= -->
     <section class="agent-single">
       <div class="container">
         <div class="row">
@@ -67,23 +59,15 @@
             <div class="row">
               <div class="col-md-5 section-md-t3">
                 <div class="agent-info-box">
-                  <div class="agent-title">
-                    <div class="title-box-d">
-                      <h3 class="title-d"><%= parsed_proprietario[0].nome %>
-                        <br> <%= parsed_proprietario[0].cognome %>
-                      </h3>
-                    </div>
-                  </div>
                   <div class="agent-content mb-3">
                     <div class="info-agents color-a">
                       <p>
                         <strong>Telefono: </strong>
-                        <span class="color-text-a">  <%= parsed_proprietario[0].telefono %> </span>
+                        <span class="color-text-a">  <%= parsed_proprietario[0][0].telefono %> </span>
                       </p>
-					
                       <p>
                         <strong>Email: </strong>
-                        <span class="color-text-a"> <%= parsed_proprietario[0].email %> </span>
+                        <span class="color-text-a"> <%= parsed_proprietario[0][0].email %> </span>
                       </p>
                      
                     </div>
@@ -97,332 +81,74 @@
               <h3 class="title-d">Proprietà del proprietario</h3>
             </div>
           </div>
-          <div class="row property-grid grid">
-            <!--<div class="col-sm-12">
-              <div class="grid-option">
-                <form>
-                  <select class="custom-select">
-                    <option selected>All</option>
-                    <option value="1">New to Old</option>
-                    <option value="2">For Rent</option>
-                    <option value="3">For Sale</option>
-                  </select>
-                </form>
-              </div>
-            </div>-->
+          <div class="row property-grid grid"> 
+		  <% for(var i=0; i <  parsed_proprietario[1].length; i++) { %>
             <div class="col-md-4">
               <div class="card-box-a card-shadow">
                 <div class="img-box-a">
-                  <img src="/public/assets/img/<%= parsed_proprietario[0].percorso %>" alt="" class="img-a img-fluid">
+                  <img src="/public/assets/img/<%= parsed_proprietario[1][i].percorso %>" alt="" class="img-a img-fluid">
                 </div>
-				  <%  var parsed_proprietario = JSON.parse(proprietario) %>
-				  <% for(var i=0; i <  parsed_proprietario.length; i++) { %>
-                <div class="card-overlay">
-                  <div class="card-overlay-a-content">
-                    <div class="card-header-a">
-                      <h2 class="card-title-a">
-                          <br /><%= parsed_proprietario[i].via %></a>
-                      </h2>
-                    </div>
-					
 
-                    <div class="card-body-a">
-                      <div class="price-box d-flex">
-                        <span class="price-a"><%= parsed_proprietario[0].prezzo %></span>
-                      </div>
-                      <a a href="/proprieta/<%= parsed_proprietario[i].id_proprieta %>" class="link-a">Clicca qua per vedere
-                        <span class="ion-ios-arrow-forward"></span>
-                      </a>
-                    </div>
-                    <div class="card-footer-a">
-                      <ul class="card-info d-flex justify-content-around">
-                        <li>
-                          <h4 class="card-info-title">Area</h4>
-                          <span>340m
-                            <sup>2</sup>
-                          </span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Letti</h4>
-                          <span>2</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Bagni</h4>
-                          <span>4</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Garage</h4>
-                          <span>1</span>
-                        </li>
-                      </ul>
-                    </div>
-					<% } %>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!--<div class="col-md-4">
-              <div class="card-box-a card-shadow">
-                <div class="img-box-a">
-                  <img src="/public/assets/img/property-3.jpg" alt="" class="img-a img-fluid">
-                </div>
                 <div class="card-overlay">
                   <div class="card-overlay-a-content">
                     <div class="card-header-a">
                       <h2 class="card-title-a">
-                        <a href="#">204 Mount
-                          <br /> Olive Road Two</a>
+                          <br /><%= parsed_proprietario[1][i].via %></a>
                       </h2>
                     </div>
                     <div class="card-body-a">
                       <div class="price-box d-flex">
-                        <span class="price-a">rent | $ 12.000</span>
+                        <span class="price-a"><%= parsed_proprietario[1][i].prezzo %></span>
                       </div>
-                      <a href="#" class="link-a">Click here to view
+                      <a a href="/proprieta/<%= parsed_proprietario[1][i].id_proprieta %>" class="link-a">Clicca qua per vedere
                         <span class="ion-ios-arrow-forward"></span>
                       </a>
                     </div>
                     <div class="card-footer-a">
-                      <ul class="card-info d-flex justify-content-around">
-                        <li>
-                          <h4 class="card-info-title">Area</h4>
-                          <span>340m
-                            <sup>2</sup>
-                          </span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Beds</h4>
-                          <span>2</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Baths</h4>
-                          <span>4</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Garages</h4>
-                          <span>1</span>
-                        </li>
-                      </ul>
-                    </div>
+                    <ul class="card-info d-flex justify-content-around">
+                      <li>
+                        <h4 class="card-info-title">Prezzo</h4>
+                        <span><%= parsed_proprietario[1][i].prezzo %>
+                        </span>
+                      </li> 
+					  <li>
+						<h4 class="card-info-title">Contratto</h4>
+						<% if(parsed_proprietario[1][i].affitto == 1) { %>
+                         <span>Affitto
+                        </span>
+						<% } %>
+						<% if(parsed_proprietario[1][i].vendita == 1) { %>
+						 <span>Vendita
+                        </span>
+						<% } %>
+                        
+                      </li>					  
+                    </ul>
+                  </div>
+					
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card-box-a card-shadow">
-                <div class="img-box-a">
-                  <img src="/public/assets/img/property-6.jpg" alt="" class="img-a img-fluid">
-                </div>
-                <div class="card-overlay">
-                  <div class="card-overlay-a-content">
-                    <div class="card-header-a">
-                      <h2 class="card-title-a">
-                        <a href="#">204 Mount
-                          <br /> Olive Road Two</a>
-                      </h2>
-                    </div>
-                    <div class="card-body-a">
-                      <div class="price-box d-flex">
-                        <span class="price-a">rent | $ 12.000</span>
-                      </div>
-                      <a href="#" class="link-a">Click here to view
-                        <span class="ion-ios-arrow-forward"></span>
-                      </a>
-                    </div>
-                    <div class="card-footer-a">
-                      <ul class="card-info d-flex justify-content-around">
-                        <li>
-                          <h4 class="card-info-title">Area</h4>
-                          <span>340m
-                            <sup>2</sup>
-                          </span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Beds</h4>
-                          <span>2</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Baths</h4>
-                          <span>4</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Garages</h4>
-                          <span>1</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </div>                                                                                                                                                                               
           
-            <div class="col-md-4">
-              <div class="card-box-a card-shadow">
-                <div class="img-box-a">
-                  <img src="/public/assets/img/property-7.jpg" alt="" class="img-a img-fluid">
-                </div>
-                <div class="card-overlay">
-                  <div class="card-overlay-a-content">
-                    <div class="card-header-a">
-                      <h2 class="card-title-a">
-                        <a href="#">204 Mount
-                          <br /> Olive Road Two</a>
-                      </h2>
-                    </div>
-                    <div class="card-body-a">
-                      <div class="price-box d-flex">
-                        <span class="price-a">rent | $ 12.000</span>
-                      </div>
-                      <a href="#" class="link-a">Click here to view
-                        <span class="ion-ios-arrow-forward"></span>
-                      </a>
-                    </div>
-                    <div class="card-footer-a">
-                      <ul class="card-info d-flex justify-content-around">
-                        <li>
-                          <h4 class="card-info-title">Area</h4>
-                          <span>340m
-                            <sup>2</sup>
-                          </span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Beds</h4>
-                          <span>2</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Baths</h4>
-                          <span>4</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Garages</h4>
-                          <span>1</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card-box-a card-shadow">
-                <div class="img-box-a">
-                  <img src="/public/assets/img/property-8.jpg" alt="" class="img-a img-fluid">
-                </div>
-                <div class="card-overlay">
-                  <div class="card-overlay-a-content">
-                    <div class="card-header-a">
-                      <h2 class="card-title-a">
-                        <a href="#">204 Mount
-                          <br /> Olive Road Two</a>
-                      </h2>
-                    </div>
-                    <div class="card-body-a">
-                      <div class="price-box d-flex">
-                        <span class="price-a">rent | $ 12.000</span>
-                      </div>
-                      <a href="#" class="link-a">Click here to view
-                        <span class="ion-ios-arrow-forward"></span>
-                      </a>
-                    </div>
-                    <div class="card-footer-a">
-                      <ul class="card-info d-flex justify-content-around">
-                        <li>
-                          <h4 class="card-info-title">Area</h4>
-                          <span>340m
-                            <sup>2</sup>
-                          </span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Beds</h4>
-                          <span>2</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Baths</h4>
-                          <span>4</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Garages</h4>
-                          <span>1</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card-box-a card-shadow">
-                <div class="img-box-a">
-                  <img src="/public/assets/img/property-10.jpg" alt="" class="img-a img-fluid">
-                </div>
-                <div class="card-overlay">
-                  <div class="card-overlay-a-content">
-                    <div class="card-header-a">
-                      <h2 class="card-title-a">
-                        <a href="#">204 Mount
-                          <br /> Olive Road Two</a>
-                      </h2>
-                    </div>
-                    <div class="card-body-a">
-                      <div class="price-box d-flex">
-                        <span class="price-a">rent | $ 12.000</span>
-                      </div>
-                      <a href="#" class="link-a">Click here to view
-                        <span class="ion-ios-arrow-forward"></span>
-                      </a>
-                    </div>
-                    <div class="card-footer-a">
-                      <ul class="card-info d-flex justify-content-around">
-                        <li>
-                          <h4 class="card-info-title">Area</h4>
-                          <span>340m
-                            <sup>2</sup>
-                          </span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Beds</h4>
-                          <span>2</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Baths</h4>
-                          <span>4</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Garages</h4>
-                          <span>1</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>-->
-          </div>
-          
+		  <% } %>
+		  </div>  
         </div>
       </div>
-    </section><!-- End Agent Single -->
-
-  </main><!-- End #main -->
-
+    </section><!-- End Owner Section -->
+  </main>
   <!-- ======= Footer ======= -->
   <%- include('footer.ejs') %>
   <!-- End  Footer -->
-
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
   <div id="preloader"></div>
-
-  <!-- Vendor JS Files -->
+  <!-- JS Files -->
   <script src="/public/assets/vendor/jquery/jquery.min.js"></script>
   <script src="/public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/public/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
   <script src="/public/assets/vendor/php-email-form/validate.js"></script>
   <script src="/public/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
   <script src="/public/assets/vendor/scrollreveal/scrollreveal.min.js"></script>
-
-  <!-- Template Main JS File -->
   <script src="/public/assets/js/main.js"></script>
-
 </body>
-
 </html>

@@ -123,7 +123,7 @@ server.get('/appuntamenti', function(request, response) {
 
 server.get('/acquirenti', function(request, response) {
 	if (request.session.loggedin) {
-		dbconnection.query('SELECT * FROM acquirente', function(error, results, fields) {
+		dbconnection.query('SELECT * FROM cliente WHERE acquirente = 1', function(error, results, fields) {
 			if (error) throw error;
 			if (results) {
 				var acquirente = JSON.stringify(results);
@@ -140,7 +140,7 @@ server.get('/acquirenti', function(request, response) {
 
 server.get('/acquirenti/:id', function(request, response) {
 	if (request.session.loggedin) {
-		dbconnection.query('SELECT * FROM acquirente, proprieta, contratto_affitto, contratto_vendita, immagine WHERE (acquirente.id = ? and acquirente.id = contratto_vendita.id_cliente and contratto_vendita.id_proprieta = proprieta.id  and immagine.id_proprieta = proprieta.id) or (acquirente.id = ? and acquirente.id = contratto_affitto.id_cliente and contratto_affitto.id_proprieta = proprieta.id and immagine.id_proprieta = proprieta.id)GROUP BY proprieta.id', [request.params.id, request.params.id], function(error, results, fields) {
+		dbconnection.query('SELECT * FROM cliente WHERE cliente.cf = ? ; SELECT * FROM cliente, proprieta, contratto_affitto WHERE cliente.cf = ?  and cliente.cf = contratto_affitto.cf_cliente and contratto_affitto.id_proprieta = proprieta.id GROUP BY contratto_affitto.id; SELECT * FROM cliente, proprieta, contratto_vendita WHERE cliente.cf = ?  and cliente.cf = contratto_vendita.cf_cliente and contratto_vendita.id_proprieta = proprieta.id GROUP BY contratto_vendita.id;', [request.params.id, request.params.id, request.params.id], function(error, results, fields) {
 			if (error) throw error;
 			if (results) {
 				var acquirente = JSON.stringify(results);
@@ -154,7 +154,7 @@ server.get('/acquirenti/:id', function(request, response) {
 
 server.get('/proprietari', function(request, response) {
 	if (request.session.loggedin) {
-		dbconnection.query('SELECT * FROM proprietario', function(error, results, fields) {
+		dbconnection.query('SELECT * FROM cliente WHERE proprietario = 1', function(error, results, fields) {
 			if (error) throw error;
 			if (results) {
 				var proprietario = JSON.stringify(results);
@@ -171,10 +171,13 @@ server.get('/proprietari', function(request, response) {
 
 server.get('/proprietari/:id', function(request, response) {
 	if (request.session.loggedin) {
-		dbconnection.query('SELECT * FROM proprietario, proprieta, immagine WHERE proprietario.id = ? and proprietario.id = proprieta.id_proprietario and immagine.id_proprieta = proprieta.id GROUP BY proprieta.id', [request.params.id], function(error, results, fields) {
+		dbconnection.query('SELECT * FROM cliente WHERE cliente.cf = ? ; SELECT * FROM cliente, proprieta, immagine WHERE cliente.cf = ? and proprieta.cf_cliente = cliente.cf and immagine.id_proprieta = proprieta.id GROUP BY proprieta.id', [request.params.id, request.params.id], function(error, results, fields) {
+			
 			if (error) throw error;
+				console.log(error);
 			if (results) {
 				var proprietario = JSON.stringify(results);
+				
 				response.render('owner-single', {proprietario:proprietario});
 			}
 		});	
@@ -204,7 +207,7 @@ server.get('/agenti', function(request, response) {
 
 server.get('/contrattiAffitto', function(request, response) {
 	if (request.session.loggedin) {
-		dbconnection.query('SELECT * FROM contratto_affitto, proprieta, acquirente where acquirente.id = contratto_affitto.id_cliente and proprieta.id = contratto_affitto.id_proprieta', function(error, results, fields) {
+		dbconnection.query('SELECT * FROM contratto_affitto, proprieta, cliente where cliente.cf = contratto_affitto.cf_cliente and proprieta.id = contratto_affitto.id_proprieta', function(error, results, fields) {
 			if (error) throw error;
 			if (results) {
 				var contratto = JSON.stringify(results);
@@ -220,7 +223,7 @@ server.get('/contrattiAffitto', function(request, response) {
 });
 server.get('/contrattiVendita', function(request, response) {
 	if (request.session.loggedin) {
-		dbconnection.query('SELECT * FROM contratto_vendita, proprieta, acquirente where acquirente.id = contratto_vendita.id_cliente and proprieta.id = contratto_vendita.id_proprieta', function(error, results, fields) {
+		dbconnection.query('SELECT * FROM contratto_vendita, proprieta, cliente where cliente.cf = contratto_vendita.cf_cliente and proprieta.id = contratto_vendita.id_proprieta', function(error, results, fields) {
 			if (error) throw error;
 			if (results) {
 				var contratto = JSON.stringify(results);
@@ -255,7 +258,7 @@ server.get('/proprieta', function(request, response) {
 
 server.get('/proprieta/:id', function(request, response) {
 	if (request.session.loggedin) {
-		dbconnection.query('SELECT * FROM proprieta, immagine, proprietario, servizio, servizio_disponibile WHERE proprieta.id = ? AND proprieta.id = immagine.id_proprieta and proprietario.id = proprieta.id_proprietario and servizio_disponibile.id_proprieta = proprieta.id and servizio_disponibile.id_servizio = servizio.id', [request.params.id], function(error, results, fields) {		
+		dbconnection.query('SELECT * FROM proprieta, immagine, cliente, servizio, servizio_disponibile WHERE proprieta.id = ? AND proprieta.id = immagine.id_proprieta and cliente.cf = proprieta.cf_cliente and servizio_disponibile.id_proprieta = proprieta.id and servizio_disponibile.id_servizio = servizio.id', [request.params.id], function(error, results, fields) {		
 		if (results) {
 				var proprieta = JSON.stringify(results);
 				response.render('property-single', {proprieta:proprieta});
@@ -392,10 +395,10 @@ server.post('/nuovocliente', function(request, response) {
 	var cognome = request.body.surname;
 	var email = request.body.email;
 	var telefono = request.body.phone;
-	
+	var cf = request.body.cf;
 	if (request.session.loggedin) {
 		if (categoria == 'acquirente'){
-		dbconnection.query("INSERT INTO acquirente (nome, cognome, email, telefono) VALUES (?, ?, ?, ?)", [nome, cognome, email, telefono], function(error, results, fields) {
+		dbconnection.query("INSERT INTO cliente (telefono,email, nome, cognome, proprietario, acquirente, cf) VALUES (?, ?, ?, ?, 0, 1, ?)", [telefono,email, nome, cognome, cf], function(error, results, fields) {
 			if (error) throw error;
 			if (results) {
 				response.redirect('/acquirenti');
@@ -403,7 +406,7 @@ server.post('/nuovocliente', function(request, response) {
 		});
 		}
 		else{
-			dbconnection.query("INSERT INTO proprietario (telefono,email, nome, cognome) VALUES (?, ?, ?, ?)", [telefono, email, nome, cognome], function(error, results, fields) {
+			dbconnection.query("INSERT INTO cliente (telefono,email, nome, cognome, proprietario, acquirente, cf) VALUES (?, ?, ?, ?, 1, 0, ?)", [telefono, email, nome, cognome, cf], function(error, results, fields) {
 		
 			if (error) throw error;
 			if (results) {
@@ -416,6 +419,8 @@ server.post('/nuovocliente', function(request, response) {
 		response.redirect('/');
 	}
 });
+
+
 
 server.post('/nuovocontratto', function(request, response) {
 	var categoria = request.body.categoria;
@@ -458,7 +463,7 @@ server.get('/inseriscicontratto', function(request, response) {
 server.get('/inserisciproprieta', function(request, response) {
 		
 	if (request.session.loggedin) {
-		dbconnection.query('SELECT nome, cognome FROM proprietario', function(error, results, fields) {
+		dbconnection.query('SELECT nome, cognome FROM cliente WHERE proprietario = 1', function(error, results, fields) {
 				if (error) throw error;
 				if (results) {
 					var proprietari = JSON.stringify(results);
@@ -496,7 +501,8 @@ server.post('/nuovaproprieta', upload.array('immagini'), function(request, respo
 	}
 	
 	if (request.session.loggedin) {
-		dbconnection.query("INSERT INTO proprieta (id_proprietario, disponibile, prezzo, affitto, vendita, via, citta, categoria, tipo) VALUES (1, 1, ?, ?, ?, ?, ?, ?, ?)", [prezzo, affitto, vendita, indirizzo, citta, categoria, tipo], function(error, results, fields) {
+		dbconnection.query("INSERT INTO proprieta (cf_cliente, disponibile, prezzo, affitto, vendita, via, citta, categoria, tipo) VALUES (1, 1, ?, ?, ?, ?, ?, ?, ?)", [prezzo, affitto, vendita, indirizzo, citta, categoria, tipo], function(error, results, fields) {
+			
 			if (error) throw error;
 			if (results) {
 				var files = request.files;

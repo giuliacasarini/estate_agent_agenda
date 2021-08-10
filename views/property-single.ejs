@@ -22,14 +22,11 @@
 
   <div class="click-closed"></div>
 
-  <!-- ======= Header/Navbar ======= -->
+  <!-- ======= Navbar ======= -->
   <%- include('navbar.ejs') %>
-  <!-- End Header/Navbar -->
-
+  <!-- End Navbar -->
   <main id="main">
-
-    <!-- ======= Intro Single ======= -->
-    
+    <!-- ======= Property Single Section======= -->
     <%  var parsed_proprieta = JSON.parse(proprieta) %>
     <section class="intro-single">
       <div class="container">
@@ -57,13 +54,10 @@
           </div>
         </div>
       </div>
-    </section><!-- End Intro Single-->
-
-    <!-- ======= Property Single ======= -->
+    </section>
     <section class="property-single nav-arrow-b">
       <div class="container">
         <div class="row">
-
           <div class="col-sm-12">
             <div id="property-single-carousel" class="owl-carousel owl-arrow gallery-property">
 			<% for(var i=0; i <  parsed_proprieta.length; i++) { %>
@@ -112,24 +106,6 @@
                           <span>Vendita</span>
                        <% } %>
                       </li>
-                      <!--<li class="d-flex justify-content-between">
-                        <strong>Area:</strong>
-                        <span>340m
-                          <sup>2</sup>
-                        </span>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <strong>Beds:</strong>
-                        <span>4</span>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <strong>Baths:</strong>
-                        <span>2</span>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <strong>Garage:</strong>
-                        <span>1</span>
-                      </li>-->
                     </ul>
                   </div>
                 </div>
@@ -144,13 +120,7 @@
                 </div>
                 <div class="property-description">
                   <p class="description color-text-a">
-                    <!-- DESCRIZIONE -->
                     <%= parsed_proprieta[0].descrizione %></p>
-                  <!--<p class="description color-text-a no-margin">
-                    Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec rutrum congue leo eget
-                    malesuada. Quisque velit nisi,
-                    pretium ut lacinia in, elementum id enim. Donec sollicitudin molestie malesuada.
-                  </p>-->
                 </div>
                 <div class="row section-t3">
                   <div class="col-sm-12">
@@ -159,17 +129,14 @@
                     </div>
                   </div>
                 </div>
-                <div class="amenities-list color-text-a">
-				
+                <div class="amenities-list color-text-a">		
                   <ul class="list-a no-margin">
-                    <!-- SERVIZI -->
                     <%= parsed_proprieta[0].nomeServizio %></p>
                   </ul>
                 </div>
               </div>
             </div>
-          </div>
-          
+          </div>      
           <div class="col-md-12">
             <div class="row section-t3">
               <div class="col-sm-12">
@@ -178,51 +145,55 @@
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-6 col-lg-4">
-                <img src="assets/img/agent-4.jpg" alt="" class="img-fluid">
-              </div>
-              <div class="col-md-6 col-lg-4">
-                <div class="property-agent">
-                  <ul class="list-unstyled">
-				  <li class="d-flex justify-content-between">
-				  <strong>Nome Cognome:</strong>
-                      <span class="color-text-a"><%= parsed_proprieta[0].nome %> <%= parsed_proprieta[0].cognome %></span>
-					</li>
-                    <li class="d-flex justify-content-between">
-                      <strong>Telefono:</strong>
-                      <span class="color-text-a"><%= parsed_proprieta[0].telefono %></span>
-                    </li>
-                    <li class="d-flex justify-content-between">
-                      <strong>Email:</strong>
-                      <span class="color-text-a"><%= parsed_proprieta[0].email %></span>
-                    </li>
-                  </ul>
+		<section class="agents-grid grid">
+		<div class="container">
+        <div class="row">
+          <div class="col-md-4">
+		  <div class="card-margin">
+              <div class="card-overlay card-overlay-hover">
+                <div class="card-header-d">
+                  <div class="card-title-d align-self-center">
+                    <h3 class="title-d">
+                      <a href="/proprietari/<%= parsed_proprieta[0].cf %>" class="link-two"><%= parsed_proprieta[0].nome %>
+                        <br> <%= parsed_proprieta[0].cognome %></a>
+                    </h3>
+                  </div>
                 </div>
+                <div class="card-body-d">
+                 
+                  <div class="info-agents color-a">
+                    <p>
+					  <strong>Telefono: </strong> <%= parsed_proprieta[0].telefono %>
+                    </p>
+                    <p>
+                      <strong>Email: </strong> <%= parsed_proprieta[0].email %>
+                    </p>
+                  </div>
+                </div>  
               </div>
-            </div>
+          </div>         
+        </div>
+		</div>      
+      </div>
+    </section>
           </div>
         </div>
       </div>
-    </section><!-- End Property Single-->
-
-  </main><!-- End #main -->
-
+    </section>
+	<!-- End Property Single Section-->
+  </main>
   <!-- ======= Footer ======= -->
-    <%- include('footer.ejs') %><!-- End  Footer -->
-
+    <%- include('footer.ejs') %>
+	<!-- End  Footer -->
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
   <div id="preloader"></div>
-
-  <!-- Vendor JS Files -->
+  <!-- JS Files -->
   <script src="/public/assets/vendor/jquery/jquery.min.js"></script>
   <script src="/public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/public/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
   <script src="/public/assets/vendor/php-email-form/validate.js"></script>
   <script src="/public/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
   <script src="/public/assets/vendor/scrollreveal/scrollreveal.min.js"></script>
-
-  <!-- Template Main JS File -->
   <script src="/public/assets/js/main.js"></script>
 
 </body>

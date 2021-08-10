@@ -4,7 +4,6 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
   <title>Agenzia Immobiliare</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
@@ -15,29 +14,20 @@
   <link href="/public/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="/public/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
   <link href="/public/assets/css/style.css" rel="stylesheet">
-
 </head>
-
 <body>
-
   <div class="click-closed"></div>
-
-
-  <!-- ======= Header/Navbar ======= -->
+  <!-- ======= Navbar ======= -->
   <%- include('navbar.ejs') %>
-  <!-- End Header/Navbar -->
-
+  <!-- End Navbar -->
   <main id="main">
-
-    <!-- ======= Intro Single ======= -->
+    <!-- ======= Intro Section ======= -->
     <section class="intro-single">
       <div class="container">
         <div class="row">
           <div class="col-md-12 col-lg-8">
             <div class="title-single-box">
-              <h1 class="title-single">Propriet&agrave;  <a href="/inserisciproprieta"><button style="float:right;">+</button></a></h1>
-			  
-              <!--<span class="color-text-a">Grid Properties</span>-->
+              <h1 class="title-single">Propriet&agrave;  <a href="/inserisciproprieta"><button style="float:right; background-color:#26c2e9; color:white; border: 1px solid white;">+</button></h1>
             </div>
           </div>
           <div class="col-md-12 col-lg-4">
@@ -45,35 +35,20 @@
               <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                   <a href="/home">Home</a>
-
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                   Proprietà
                 </li>
               </ol>
             </nav>
-          </div>
-      
+          </div>   
         </div>
       </div>
-    </section><!-- End Intro Single-->
-
-    <!-- ======= Property Grid ======= -->
+    </section><!-- End Intro Section-->
+    <!-- ======= Property Section ======= -->
     <section class="property-grid grid">
       <div class="container">
         <div class="row">
-		  <!--<div class="col-sm-3">
-            <div class="grid-option">
-              <form>
-                <select class="custom-select">
-                  <option selected>All</option>
-                  <option value="1">New to Old</option>
-                  <option value="2">For Rent</option>
-                  <option value="3">For Sale</option>
-                </select>
-              </form>
-            </div>
-          </div>-->
 		  <%  var parsed_proprieta = JSON.parse(proprieta) %>
 		  <% for(var i=0; i <  parsed_proprieta.length; i++) { %>
           <div class="col-md-4">
@@ -102,8 +77,18 @@
                         <span><%= parsed_proprieta[i].prezzo %>
                         </span>
                       </li>
-                      
-                      
+						<li>
+						<h4 class="card-info-title">Contratto</h4>
+						<% if(parsed_proprieta[i].affitto == 1) { %>
+                         <span>Affitto
+                        </span>
+						<% } %>
+						<% if(parsed_proprieta[i].vendita == 1) { %>
+						 <span>Vendita
+                        </span>
+						<% } %>
+                        
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -112,58 +97,21 @@
           </div> 
 		<% } %>
         </div>
-		
-        <!--<div class="row">
-          <div class="col-sm-12">
-            <nav class="pagination-a">
-              <ul class="pagination justify-content-end">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" tabindex="-1">
-                    <span class="ion-ios-arrow-back"></span>
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item active">
-                  <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item next">
-                  <a class="page-link" href="#">
-                    <span class="ion-ios-arrow-forward"></span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div> -->
-		
       </div>
-    </section><!-- End Property Grid Single-->
-
-  </main><!-- End #main -->
-
+    </section><!-- End Property Section-->
+  </main>
   <!-- ======= Footer ======= -->
   <%- include('footer.ejs') %>
   <!-- End  Footer -->
-
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
   <div id="preloader"></div>
-
-  <!-- Vendor JS Files -->
+  <!--  JS Files -->
   <script src="/public/assets/vendor/jquery/jquery.min.js"></script>
   <script src="/public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/public/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
   <script src="/public/assets/vendor/php-email-form/validate.js"></script>
   <script src="/public/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
   <script src="/public/assets/vendor/scrollreveal/scrollreveal.min.js"></script>
-
-  <!-- Template Main JS File -->
   <script src="/public/assets/js/main.js"></script>
-
 </body>
-
 </html>
