@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>EstateAgency - Index</title>
+  <title>Agenzia Immobiliare - Home</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
@@ -251,7 +251,7 @@
         </div>
         <div class="row">
 		<%  var parsed_agente = JSON.parse(agente) %>
-		  <% for(var i=0; i <  2; i++) { %>
+		  <% for(var i=0; i <  parsed_agente.length; i++) { %>
           <div class="col-md-6">
             <div class="card-box-d">
               <div class="card-img-d">
@@ -267,7 +267,7 @@
                   </div>
                 </div>
                 <div class="card-body-d">
-                  <div class="info-agents color-a">
+                  <div class="color-a">
                     <p>
                       <strong>Telefono: </strong> <%= parsed_agente[i].telefono %> 
                     </p>
@@ -298,35 +298,35 @@
   <script src="/public/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
   <script src="/public/assets/vendor/scrollreveal/scrollreveal.min.js"></script>
   <script>
-var events = <%- eventi %>;
-var today = new Date();
-var mm = today.getMonth(); // keep track of the month
-var year = today.getFullYear(); // keep track of the year
-var day = today.getDate();
-loadEvents();
- <!-- ======= function to display events for today ======= -->
-function loadEvents() {   
-		for (j = 0, text = "", compare_date = new Date(year, mm, day), events_check = 0; j < Object.keys(events).length; j++) {
-			event_date = new Date(events[j].giorno)
-			console.log(compare_date);
-			console.log(event_date);
-			if (compare_date.getTime() == event_date.getTime()){
-			  events_check++;
+	var events = <%- eventi %>;
+	var today = new Date();
+	var mm = today.getMonth(); // keep track of the month
+	var year = today.getFullYear(); // keep track of the year
+	var day = today.getDate();
+	loadEvents();
+	 <!-- ======= function to display events for today ======= -->
+	function loadEvents() {   
+			for (j = 0, text = "", compare_date = new Date(year, mm, day), events_check = 0; j < Object.keys(events).length; j++) {
+				event_date = new Date(events[j].giorno)
+				console.log(compare_date);
+				console.log(event_date);
+				if (compare_date.getTime() == event_date.getTime()){
+				  events_check++;
+				}
+			}
+			if (events_check == 0){
+				text += "Nessun evento per oggi";
+			}
+			else if (events_check == 1){
+				text += "E' presente " + events_check + " evento per oggi.";
+			}
+			else {
+				text += "Sono presenti " + events_check + " eventi per oggi.";
 			}
 		}
-		if (events_check == 0){
-			text += "Nessun evento per oggi";
-		}
-		else if (events_check == 1){
-			text += "E' presente " + events_check + " evento per oggi.";
-		}
-		else {
-			text += "Sono presenti " + events_check + " eventi per oggi.";
-		}
- 	}
-	document.getElementById("current-events").innerHTML = text;
+		document.getElementById("current-events").innerHTML = text;
 
-</script>
+  </script>
   <script src="/public/assets/js/main.js"></script>
 </body>
 </html>

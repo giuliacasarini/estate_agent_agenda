@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Inserisci un nuovo cliente</title>
+  <title>Agenzia Immobiliare - Inserisci un nuovo contratto</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
@@ -32,13 +32,12 @@
         </div>
       </div>
     </section>
-    <section class="contact">
       <div class="container">
         <div class="row">
           <div class="col-sm-12 section-t8">
             <div class="row">
               <div class="col-md-7">
-                <form action="/nuovocliente" method="post" role="form" class="php-email-form">
+                <form action="/nuovocontratto" method="post" role="form" enctype="multipart/form-data" class="php-email-form">
                   <div class="row">
 				  <div class="col-md-6 mb-3">
                       <div class="form-group">
@@ -48,56 +47,18 @@
 							<option value="affitto">Affitto</option>
 							<option value="vendita">Vendita</option>
 					     </select>
-                        <div class="validate"></div>
                       </div>
                     </div>
-                    <div class="col-md-6 mb-3">
-                      <div class="form-group">
-					   <label for="name">Nome</label>
-					   <input type="text" id="name" name="name" class="form-control form-control-lg form-control-a" placeholder="Nome">
-                        <div class="validate"></div>
-                      </div>
-                    </div>
-					<div class="col-md-6 mb-3">
-                      <div class="form-group">
-					   <label for="surname">Cognome</label>
-					   <input type="text" id="surname" name="surname" class="form-control form-control-lg form-control-a" placeholder="Cognome">
-                        <div class="validate"></div>
-                      </div>
-                    </div>					
-					<div class="col-md-6 mb-3">
-                      <div class="form-group">
-					    <label for="email">Email</label>
-						<input type="text" id="email" name="email" class="form-control form-control-lg form-control-a" placeholder="Indirizzo di posta elettronica">
-                        <div class="validate"></div>
-                      </div>
-                    </div>
-					<div class="col-md-6 mb-3">
-                      <div class="form-group">
-                        <label for="phone">Telefono</label>
-						<input type="text" id="phone" name="phone" class="form-control form-control-lg form-control-a" placeholder="Numero di telefono">
-                        <div class="validate"></div>
-                      </div>
-                    </div>
-					<div class="col-md-12 text-center">
-                      <div class="form-group">
-					      <label for="filecontratto">Seleziona il file del contratto:</label>
-						  <input type="file" id="filecontratto" name="filecontratto"><br><br>
-						  <div class="validate"></div>
-                      </div>
-                    </div>
-                    <div class="col-md-12 text-center">
-                      <input type="submit" value="Inserisci" id="tastoInserisciCliente" class="btn btn-a">
-                      <br><br>
-                    </div>
+					<div id="dynamicform">
+                    
                   </div>
+				 </div>
                 </form>
               </div>            
             </div>
           </div>
         </div>
       </div>
-    </section>
   </main>
   <!-- ======= Footer ======= -->
   <%- include('footer.ejs') %>
@@ -111,5 +72,92 @@
   <script src="/public/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
   <script src="/public/assets/vendor/scrollreveal/scrollreveal.min.js"></script>
   <script src="/public/assets/js/main.js"></script>
+  
+  <script>
+	  $(document).ready(function(){
+	   $("#categoria").change(function(){
+	   var category =  $(this).children(":selected").text();
+	   switch (category) 
+	  {
+	   case "Affitto":
+	   $( "#dynamicform" ).html(' <div class="col-md-6 mb-3">' +
+		  '<div class="form-group"> ' +
+		   '<label for="name">Codice Fiscale Cliente</label>' +
+		   '<input type="text" id="cf" name="cf" class="form-control form-control-lg form-control-a" placeholder="Codice Fiscale" required>' +
+		  '</div>' +
+		'</div>' +
+		'<div class="col-md-6 mb-3">' +
+		  '<div class="form-group">' +
+			'<label for="id">Identificativo Proprietà</label> ' +
+			'<input type="text" id="id" name="id" class="form-control form-control-lg form-control-a" placeholder="Id" required>' +
+		  '</div>' +
+		'</div>' +
+		'<div class="col-md-6 mb-3">' +
+		  '<div class="form-group"> ' +
+			'<label for="prezzo">Prezzo</label> ' +
+				'<input type="text" id="prezzo" name="prezzo" class="form-control form-control-lg form-control-a" placeholder="Prezzo" required>' +
+		  '</div> ' +
+		'</div> ' +
+		'<div class="col-md-6 mb-3">' +
+		 '<div class="form-group">' +
+		'<label> ' +
+		  'Data inizio e fine AFFITTO:' +
+		  '<input type="date" name="datainizio">' +
+		'</label>' +
+		'<br><br>' +
+		'<label>' +
+		  '<input type="date" name="datafine">' +
+		'</label>' +
+		 '</div>' +
+		'</div>' +
+		'<div class="col-md-12 text-center">' +
+		  '<div class="form-group">' +
+			  '<label for="contratto">Seleziona il file del contratto:</label>' +
+			  '<input type="file" id="contratto" name="contratto" accept=".pdf" required><br><br>' +
+		  '</div>' +
+		'</div>' +
+		'<div class="col-md-12 text-center">' +
+		  '<input type="submit" value="Inserisci" id="tastoInserisciContratto" class="btn btn-a">' +
+		  '<br><br>' +
+		'</div>' 
+		);
+	   break;
+	   case "Vendita":
+	    $( "#dynamicform" ).html( ' <div class="col-md-6 mb-3">' +
+		  '<div class="form-group"> ' +
+		   '<label for="name">Codice Fiscale Cliente</label>' +
+		   '<input type="text" id="cf" name="cf" class="form-control form-control-lg form-control-a" placeholder="Codice Fiscale" required>' +
+		  '</div>' +
+		'</div>' +
+		'<div class="col-md-6 mb-3">' +
+		  '<div class="form-group">' +
+			'<label for="id">Identificativo Proprietà</label> ' +
+			'<input type="text" id="id" name="id" class="form-control form-control-lg form-control-a" placeholder="Id" required>' +
+		  '</div>' +
+		'</div>' +
+		'<div class="col-md-6 mb-3">' +
+		  '<div class="form-group"> ' +
+			'<label for="prezzo">Prezzo</label> ' +
+				'<input type="text" id="prezzo" name="prezzo" class="form-control form-control-lg form-control-a" placeholder="Prezzo" required>' +
+		  '</div> ' +
+		'</div> ' +
+		'<div class="col-md-12 text-center">' +
+		  '<div class="form-group">' +
+			  '<label for="contratto">Seleziona il file del contratto:</label>' +
+			  '<input type="file" id="contratto" name="contratto" accept=".pdf" required><br><br>' +
+		  '</div>' +
+		'</div>' +
+		'<div class="col-md-12 text-center">' +
+		  '<input type="submit" value="Inserisci" id="tastoInserisciContratto" class="btn btn-a">' +
+		  '<br><br>' +
+		'</div>' 
+		);
+	   break;
+	   default:
+	   }
+	   }); 
+	 }); 
+  </script>
+ 
 </body>
 </html>

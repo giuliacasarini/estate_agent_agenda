@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Agenzia Immobiliare</title>
+  <title>Agenzia Immobiliare - Appuntamenti</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
@@ -77,84 +77,84 @@
   <script src="/public/assets/vendor/php-email-form/validate.js"></script>
   <script src="/public/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
   <script src="/public/assets/vendor/scrollreveal/scrollreveal.min.js"></script>
-<script>
-var events = <%- eventi %>;
-var month = ["Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"];
-var today = new Date();
-var label = month[today.getMonth()];
-var mm = today.getMonth(); // keep track of the month
-var year = today.getFullYear(); // keep track of the year
-var day = today.getDate();
-document.getElementById("mon").innerHTML = label + " " + year;
-//document.getElementById("days").innerHTML = day;
-loadDays();
+  <script>
+	var events = <%- eventi %>;
+	var month = ["Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"];
+	var today = new Date();
+	var label = month[today.getMonth()];
+	var mm = today.getMonth(); // keep track of the month
+	var year = today.getFullYear(); // keep track of the year
+	var day = today.getDate();
+	document.getElementById("mon").innerHTML = label + " " + year;
+	//document.getElementById("days").innerHTML = day;
+	loadDays();
 
- <!-- ======= function to display the days ======= -->
-function loadDays() {
-	var daysInMonths = [31, (((year%4==0)&&(year%100!=0))||(year%400==0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-	count = 0;
-	for (i = 1, len = daysInMonths[mm], text = ""; i < len + 1; i++) {    
-		text += "<div class='day col-sm p-2 border border-left-0 border-top-0 text-muted'> <h5 class='row align-items-center'><span class='date col-1'><button onclick='popup(this)'>" + i + "</button></span></h5>";
-		for (j = 0, compare_date = new Date(year, mm, i), events_check = 0; j < Object.keys(events).length; j++) {
-			event_date = new Date(events[j].giorno)
-			if (compare_date.getTime() == event_date.getTime()){
-			  events_check++;
+	 <!-- ======= function to display the days ======= -->
+	function loadDays() {
+		var daysInMonths = [31, (((year%4==0)&&(year%100!=0))||(year%400==0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+		count = 0;
+		for (i = 1, len = daysInMonths[mm], text = ""; i < len + 1; i++) {    
+			text += "<div class='day col-sm p-2 border border-left-0 border-top-0 text-muted'> <h5 class='row align-items-center'><span class='date col-1'><button onclick='popup(this)'>" + i + "</button></span></h5>";
+			for (j = 0, compare_date = new Date(year, mm, i), events_check = 0; j < Object.keys(events).length; j++) {
+				event_date = new Date(events[j].giorno)
+				if (compare_date.getTime() == event_date.getTime()){
+				  events_check++;
+				}
+			}
+			if (events_check == 0){
+				text += "</div>";
+			}
+			else if (events_check == 1){
+				text += "E' presente " + events_check + " evento per oggi.</div>";
+			}
+			else {
+				text += "Sono presenti " + events_check + " eventi per oggi.</div>";
+			}
+			count++;
+			if (count == 7){
+			 text += "<div class='w-100'></div>"
+			 count = 0;
 			}
 		}
-		if (events_check == 0){
-			text += "</div>";
+		document.getElementById("day-single").innerHTML = text;
+	}
+
+	document.getElementById("prevBtn").addEventListener("click", previousMonth);
+
+	function previousMonth() {
+		mm -= 1; // decrement the month
+		if (mm < 0) { // if we go before January
+			mm = 11; // go to December
+			year -= 1; // of previous year
 		}
-		else if (events_check == 1){
-			text += "E' presente " + events_check + " evento per oggi.</div>";
+		label = month[mm];
+		document.getElementById("mon").innerHTML = label + " " + year;
+		loadDays();
+	}
+
+	document.getElementById("nextBtn").addEventListener("click", nextMonth);
+	function nextMonth(){
+		mm += 1; // increment month
+		if (mm > 11) { // if we go after December
+			mm = 0; // go to January
+			year += 1; // of next year
 		}
-		else {
-			text += "Sono presenti " + events_check + " eventi per oggi.</div>";
-		}
-		count++;
-		if (count == 7){
-		 text += "<div class='w-100'></div>"
-		 count = 0;
-		}
- 	}
-	document.getElementById("day-single").innerHTML = text;
-}
-
-document.getElementById("prevBtn").addEventListener("click", previousMonth);
-
-function previousMonth() {
-    mm -= 1; // decrement the month
-    if (mm < 0) { // if we go before January
-        mm = 11; // go to December
-        year -= 1; // of previous year
-    }
-    label = month[mm];
-    document.getElementById("mon").innerHTML = label + " " + year;
-	loadDays();
-}
-
-document.getElementById("nextBtn").addEventListener("click", nextMonth);
-function nextMonth(){
-    mm += 1; // increment month
-    if (mm > 11) { // if we go after December
-        mm = 0; // go to January
-        year += 1; // of next year
-    }
-	label = month[mm];
-    document.getElementById("mon").innerHTML = label + " " + year;
-	loadDays();
-}
+		label = month[mm];
+		document.getElementById("mon").innerHTML = label + " " + year;
+		loadDays();
+	}
 
 
-function popup(el){
-	var w = 800;
-	var h = 600;
-	var l = Math.floor((screen.width-w)/2);
-	var t = Math.floor((screen.height-h)/2);
-	var mmm = mm + 1;
-	window.open("popupcalendario/" + year + "-" + mmm + "-" + el.textContent,"","width=" + w + ",height=" + h + ",top=" + t + ",left=" + l);
-}
+	function popup(el){
+		var w = 800;
+		var h = 600;
+		var l = Math.floor((screen.width-w)/2);
+		var t = Math.floor((screen.height-h)/2);
+		var mmm = mm + 1;
+		window.open("popupcalendario/" + year + "-" + mmm + "-" + el.textContent,"","width=" + w + ",height=" + h + ",top=" + t + ",left=" + l);
+	}
 
-</script>
+  </script>
   <script src="/public/assets/js/main.js"></script>
 
 </body>

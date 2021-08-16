@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Agenzia Immobiliare</title>
+  <title>Agenzia Immobiliare - Proprietà</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
   
@@ -33,8 +33,8 @@
         <div class="row">
           <div class="col-md-12 col-lg-8">
             <div class="title-single-box">
-              <h1 class="title-single"><%= parsed_proprieta[0].via %></h1>
-              <span class="color-text-a"><%= parsed_proprieta[0].citta %></span>
+              <h1 class="title-single"><%= parsed_proprieta[0][0].via %></h1>
+              <span class="color-text-a"><%= parsed_proprieta[0][0].citta %></span>
             </div>
           </div>
           <div class="col-md-12 col-lg-4">
@@ -47,7 +47,7 @@
                   Proprietà
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                  <%= parsed_proprieta[0].via %>
+                  <%= parsed_proprieta[0][0].via %>
                 </li>
               </ol>
             </nav>
@@ -60,9 +60,9 @@
         <div class="row">
           <div class="col-sm-12">
             <div id="property-single-carousel" class="owl-carousel owl-arrow gallery-property">
-			<% for(var i=0; i <  parsed_proprieta.length; i++) { %>
+			<% for(var i=0; i <  parsed_proprieta[0].length; i++) { %>
               <div class="carousel-item-b">
-                <img src="/public/assets/img/<%= parsed_proprieta[i].percorso %>" alt="">
+                <img src="/public/assets/img/<%= parsed_proprieta[0][i].percorso %>" alt="">
               </div>
 			<% } %>
             </div>
@@ -71,7 +71,7 @@
                 <div class="property-price d-flex justify-content-center foo">
                   <div class="card-header-c d-flex">
                     <div class="card-box-ico">
-                      <span class="ion-money">€ <%= parsed_proprieta[0].prezzo %></span>				  
+                      <span class="ion-money">€ <%= parsed_proprieta[0][0].prezzo %></span>				  
       
                     </div>
                   </div>
@@ -88,19 +88,19 @@
                     <ul class="list">
                       <li class="d-flex justify-content-between">
                         <strong>ID proprietà:</strong>
-                        <span><%= parsed_proprieta[0].id %></span>
+                        <span><%= parsed_proprieta[0][0].id %></span>
                       </li>
                       <li class="d-flex justify-content-between">
                         <strong>Posizione:</strong>
-                        <span><%= parsed_proprieta[0].citta %></span>
+                        <span><%= parsed_proprieta[0][0].citta %></span>
                       </li>
                       <li class="d-flex justify-content-between">
                         <strong>Tipo:</strong>
-                        <span><%= parsed_proprieta[0].tipo %></span>
+                        <span><%= parsed_proprieta[0][0].tipo %></span>
                       </li>
                       <li class="d-flex justify-content-between">
                         <strong>Stato:</strong>
-                        <% if(parsed_proprieta[0].affitto == 1){ %>
+                        <% if(parsed_proprieta[0][0].affitto == 1){ %>
                           <span>Affitto</span>
                         <% } else{ %>  
                           <span>Vendita</span>
@@ -120,7 +120,7 @@
                 </div>
                 <div class="property-description">
                   <p class="description color-text-a">
-                    <%= parsed_proprieta[0].descrizione %></p>
+                    <%= parsed_proprieta[0][0].descrizione %></p>
                 </div>
                 <div class="row section-t3">
                   <div class="col-sm-12">
@@ -129,10 +129,13 @@
                     </div>
                   </div>
                 </div>
-                <div class="amenities-list color-text-a">		
+                <div class="amenities-list color-text-a">
+				  <% for(var i=0; i <  parsed_proprieta[1].length; i++) { %>
                   <ul class="list-a no-margin">
-                    <%= parsed_proprieta[0].nomeServizio %></p>
+                    <%= parsed_proprieta[1][i].nomeServizio %></p>
                   </ul>
+				  <br>
+				  <% } %>
                 </div>
               </div>
             </div>
@@ -145,7 +148,7 @@
                 </div>
               </div>
             </div>
-		<section class="agents-grid grid">
+		<section class="grid">
 		<div class="container">
         <div class="row">
           <div class="col-md-4">
@@ -154,19 +157,19 @@
                 <div class="card-header-d">
                   <div class="card-title-d align-self-center">
                     <h3 class="title-d">
-                      <a href="/proprietari/<%= parsed_proprieta[0].cf %>" class="link-two"><%= parsed_proprieta[0].nome %>
-                        <br> <%= parsed_proprieta[0].cognome %></a>
+                      <a href="/proprietari/<%= parsed_proprieta[0][0].cf %>" class="link-two"><%= parsed_proprieta[0][0].nome %>
+                        <br> <%= parsed_proprieta[0][0].cognome %></a>
                     </h3>
                   </div>
                 </div>
                 <div class="card-body-d">
                  
-                  <div class="info-agents color-a">
+                  <div class="color-a">
                     <p>
-					  <strong>Telefono: </strong> <%= parsed_proprieta[0].telefono %>
+					  <strong>Telefono: </strong> <%= parsed_proprieta[0][0].telefono %>
                     </p>
                     <p>
-                      <strong>Email: </strong> <%= parsed_proprieta[0].email %>
+                      <strong>Email: </strong> <%= parsed_proprieta[0][0].email %>
                     </p>
                   </div>
                 </div>  

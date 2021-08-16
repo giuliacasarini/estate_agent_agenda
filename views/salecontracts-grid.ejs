@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Agenzia Immobiliare</title>
+  <title>Agenzia Immobiliare - Contratti Vendita</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
@@ -47,8 +47,8 @@
         </div>
       </div>
     </section><!-- End Intro Section-->
-      <!-- ======= Insert Contract Section ======= -->
-    <section class="agents-grid grid">
+      <!-- ======= Contracts Section ======= -->
+    <section class="grid">
       <div class="container">
         <div class="row">
 		<%  var parsed_contratto = JSON.parse(contratto) %>
@@ -64,9 +64,12 @@
                   </div>
                 </div>
                 <div class="card-body-d">            
-                  <div class="info-agents color-a">
+                  <div class="color-a">
 					<p>
-						Cliente: <%= parsed_contratto[i].nome %> <%= parsed_contratto[i].cognome %></strong> 
+						<strong> Cliente: </strong>  <%= parsed_contratto[i].nome %> <%= parsed_contratto[i].cognome %>
+                    </p>
+					<p>
+						<strong><a href="/downloadcontratto/<%= parsed_contratto[i].nomefile %>"> Scarica Allegato </a> </strong>
                     </p>
                   </div>
                 </div>              
@@ -77,7 +80,7 @@
 		</div>     
       </div>
     </section>
-	<!-- ======= End Insert Contract Section ======= -->
+	<!-- ======= End Contracts Section ======= -->
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->

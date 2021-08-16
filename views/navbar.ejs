@@ -58,7 +58,29 @@
         </div>
       </div>
     </form>
+	<br><br><br>
+	  <form class="form-a" action="/ricercacliente" id="ricercaCliente" method="post">
+      <div class="row">
+	  <div class="col-md-6 mb-2">
+          <div class="form-group">
+          <label for="name">Nome:</label><br>
+          <input type="text" id="name" name="name"><br>
+          </div>
+        </div>
+		<div class="col-md-6 mb-2">
+          <div class="form-group">
+               <label for="surname">Cognome:</label><br>
+               <input type="text" id="surname" name="surname"><br>
+          </div>
+        </div>
+        
+        <div class="col-md-12">
+          <button type="submit" class="btn btn-b" id="tastoCercaCliente">Cerca Cliente</button>
+        </div>
+      </div>
+    </form>
   </div>
+
 </div>
 
 <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
@@ -85,9 +107,8 @@
               Clienti
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-			  <a class="dropdown-item" href="/acquirenti">Acquirente</a>
+			  <a class="dropdown-item" href="/acquirenti">Acquirenti</a>
 			  <a class="dropdown-item" href="/proprietari">Proprietari</a>
-			  <a class="dropdown-item" href="/inseriscicliente">Inserisci cliente</a>
             </div>
           </li>
           <li class="nav-item dropdown">
